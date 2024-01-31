@@ -11,8 +11,7 @@
   };
 
   sops.secrets = {
+    # Copy to my ovpn configs
     "pia/auth-user-pass" = { owner = config.users.users.dj.name; };
   };
-
-  # TODO: Use template to create userpass file in ovpn directory?
 }

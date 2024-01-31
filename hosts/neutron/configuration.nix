@@ -14,6 +14,7 @@
       ../../modules/nixos/greeter
       ../../modules/nixos/keys
       ../../modules/nixos/nvidia
+      ../../modules/nixos/openvpn
       ../../modules/nixos/sound
       ../../modules/nixos/steam
     ];

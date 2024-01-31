@@ -13,6 +13,7 @@
       ../../modules/nixos/core
       ../../modules/nixos/greeter
       ../../modules/nixos/keys
+      ../../modules/nixos/openvpn
       ../../modules/nixos/sound
     ];
 
