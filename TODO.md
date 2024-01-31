@@ -21,14 +21,14 @@
     - [ ] [Yubikey PAM](https://nixos.wiki/wiki/Yubikey)
       - [x] Sudo
       - [ ] Login with TuiGreeter
-  - [ ] Secrets with [sops-nix](https://github.com/Mic92/sops-nix)
+  - [x] Secrets with [sops-nix](https://github.com/Mic92/sops-nix)
   - [x] Low battery notification daemon
 
 ## Programs
 
 - [ ] [VPN](https://nixos.wiki/wiki/OpenVPN) (PIA over OpenVPN)
   - [x] Setup module for switch to load configs from ./openvpn-configs
-  - [ ] Safely store PIA credentials
+  - [x] Safely store PIA credentials
 - [x] QBittorrent
 - [x] ffmpeg
 - [x] HandBrake
