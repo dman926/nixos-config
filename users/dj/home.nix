@@ -52,6 +52,10 @@
     enable = true;
     userName = "dman926";
     userEmail = "dj@dstelmach.com";
+    signing = {
+      key = "3157A0E73E7310AE7DD11A58E1A18DF6B4F919E4";
+      signByDefault = true;
+    };
     aliases = {
       gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f";
     };
