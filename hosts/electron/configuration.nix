@@ -8,8 +8,8 @@
       
       ../../users/dj
       
-      # inputs.sops-nix.nixosModules.sops
-      # ../../modules/nixos/secrets
+      inputs.sops-nix.nixosModules.sops
+      ../../modules/nixos/secrets
       ../../modules/nixos/core
       ../../modules/nixos/greeter
       ../../modules/nixos/keys

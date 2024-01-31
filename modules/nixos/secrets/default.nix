@@ -1,10 +1,18 @@
-{ .. }:
+{ config, ... }:
 # Be sure to include `inputs.sops-nix.nixosModules.sops` in config imports
 {
-  sops.defaultSopsFile = ../../../secrets/secrets.yml;
+  sops.defaultSopsFile = ../../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
-  sops.secrets = {
-    "" = { owner = "dj"; };
+  sops.age = {
+    sshKeyPaths = [ "/home/dj/.ssh/id_ed25519" ];
+    keyFile = "/home/dj/.config/age/keys.txt";
+    generateKey = true;
   };
+
+  sops.secrets = {
+    "pia/auth-user-pass" = { owner = config.users.users.dj.name; };
+  };
+
+  # TODO: Use template to create userpass file in ovpn directory?
 }

@@ -21,6 +21,7 @@
     stress
 
     yubikey-personalization
+    sops
   ];
 
   home.sessionVariables = {
