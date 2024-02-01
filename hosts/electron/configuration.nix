@@ -33,41 +33,41 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     e2fsprogs
-     nano
-     gnupg
-     cifs-utils
-     xdg-utils
-     xdg-desktop-portal-gtk
-     xdg-desktop-portal-wlr
-     waybar
-     # use eww when it gets more complex, waybar works for now
-     # eww
-     mako
-     libnotify # Dependency of mako
-     swww
-     kitty # TODO: find a better terminal if any
-     rofi-wayland
-     # Wayland deps
-     libsForQt5.qt5.qtwayland # qt5-wayland
-     libsForQt5.qt5ct
-     libsForQt5.polkit-kde-agent
+    e2fsprogs
+    nano
+    gnupg
+    cifs-utils
+    xdg-utils
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-wlr
+    waybar
+    # use eww when it gets more complex, waybar works for now
+    # eww
+    mako
+    libnotify # Dependency of mako
+    swww
+    kitty # TODO: find a better terminal if any
+    rofi-wayland
+    # Wayland deps
+    libsForQt5.qt5.qtwayland # qt5-wayland
+    libsForQt5.qt5ct
+    libsForQt5.polkit-kde-agent
 
-     efibootmgr
-     # dolphin
-     samba
-     gnome.seahorse
-     libsForQt5.ark
-     gparted
+    efibootmgr
+    # dolphin
+    samba
+    gnome.seahorse
+    libsForQt5.ark
+    gparted
 
-     ffmpeg-full
+    ffmpeg-full
      
-     discord
-     # Discord screensharing with audio in Wayland
-     vesktop
+    discord
+    # Discord screensharing with audio in Wayland
+    vesktop
 
-     pavucontrol
-   ];
+    pavucontrol
+  ];
   
 
   # TODO: further XDG config and move to module

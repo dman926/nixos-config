@@ -35,48 +35,48 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     e2fsprogs
-     nano
-     gnupg
-     cifs-utils
-     xdg-utils
-     xdg-desktop-portal-gtk
-     xdg-desktop-portal-wlr
-     waybar
-     # use eww when it gets more complex, waybar works for now
-     # eww
-     mako
-     libnotify # Dependency of mako
-     swww
-     kitty # TODO: find a better terminal if any
-     rofi-wayland
-     # Wayland deps
-     libsForQt5.qt5.qtwayland # qt5-wayland
-     libsForQt5.qt5ct
-     libva
+    e2fsprogs
+    nano
+    gnupg
+    cifs-utils
+    xdg-utils
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-wlr
+    waybar
+    # use eww when it gets more complex, waybar works for now
+    # eww
+    mako
+    libnotify # Dependency of mako
+    swww
+    kitty # TODO: find a better terminal if any
+    rofi-wayland
+    # Wayland deps
+    libsForQt5.qt5.qtwayland # qt5-wayland
+    libsForQt5.qt5ct
+    libva
 
-     efibootmgr
-     # dolphin
-     samba
-     gnome.seahorse
-     libsForQt5.ark
-     gparted
+    efibootmgr
+    # dolphin
+    samba
+    gnome.seahorse
+    libsForQt5.ark
+    gparted
 
-     # CUDA
-     cudaPackages.cudatoolkit
+    # CUDA
+    cudaPackages.cudatoolkit
 
-     qbittorrent
-     ffmpeg-full
-     handbrake
+    qbittorrent
+    ffmpeg-full
+    handbrake
 
-     discord
-     # Discord screensharing with audio in Wayland
-     vesktop
+    discord
+    # Discord screensharing with audio in Wayland
+    vesktop
 
-     steam-run
+    steam-run
 
-     pavucontrol
-   ];
+    pavucontrol
+  ];
   
 
   # TODO: further XDG config and move to module
