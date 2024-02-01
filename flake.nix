@@ -29,7 +29,11 @@
     {
       nixosConfigurations = {
         electron = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+          inherit system;
+          specialArgs = {
+            inherit inputs;
+            inherit system;
+          };
           modules = [
             nixos-hardware.nixosModules.framework-12th-gen-intel
             ./hosts/electron/configuration.nix
@@ -38,7 +42,11 @@
           ];
         };
         neutron = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+          inherit system;
+          specialArgs = {
+            inherit inputs;
+            inherit system;
+          };
           modules = [
             ./hosts/neutron/configuration.nix
             hyprland.nixosModules.default

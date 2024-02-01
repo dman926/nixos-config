@@ -18,6 +18,7 @@
     xdg-utils
     pinentry
     btop
+    nvitop
     stress
 
     yubikey-personalization

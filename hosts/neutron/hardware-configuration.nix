@@ -30,13 +30,13 @@
     "/media/memebigboi" =
       { device = "/dev/disk/by-uuid/756194cd-2313-4e2e-8d2f-52dc3def00bd";
         fsType = "ext4";
-        options = [ "defaults" "user" "rw" "nofail" ];
+        options = [ "defaults" "rw" "nofail" ];
       };
 
     "/media/game_1" =
       { device = "/dev/disk/by-uuid/ad69d529-e1b8-4754-8162-37a65745cb9f";
         fsType = "ext4";
-        options = [ "defaults" "user" "rw" "nofail" ];
+        options = [ "defaults" "rw" "nofail" ];
       };
   };
 
