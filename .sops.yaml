@@ -1,6 +1,7 @@
 keys:
   - &dj 3157A0E73E7310AE7DD11A58E1A18DF6B4F919E4
   - &host_electron age1lycmmsnl6nnu4a4wxp56s888rn7nd6rf6ftjp07gj7qkwgv6c49smzdfhc
+  - &host_neutron age157cxqlr6xa6praa0y88scsh8xul5xdsk9xguf69s2rck7ylr5quq3e8tq5
 
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
@@ -9,3 +10,4 @@ creation_rules:
       - *dj
       age:
       - *host_electron
+      - *host_neutron
