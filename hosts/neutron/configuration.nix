@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
   imports =
@@ -38,6 +38,7 @@
      e2fsprogs
      nano
      gnupg
+     cifs-utils
      xdg-utils
      xdg-desktop-portal-gtk
      xdg-desktop-portal-wlr
@@ -55,7 +56,8 @@
      libva
 
      efibootmgr
-     dolphin
+     # dolphin
+     samba
      gnome.seahorse
      libsForQt5.ark
      gparted
@@ -93,6 +95,10 @@
     XDG_SESSION_TYPE = "wayland";
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "Hyprland";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    QT_QPA_PLATFORMTHEME = "qt5ct";
     GTK_USE_PORTAL = "1";
     NIXOS_XDG_OPEN_USE_PORTAL = "1";
     NIXOS_OZONE_WL = "1";
@@ -102,6 +108,18 @@
     enable = true;
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   };
+  
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+    ];
+  };
+  services.gvfs = {
+    enable = true;
+    package = lib.mkForce pkgs.gvfs;
+  };
+  services.tumbler.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
 
