@@ -13,7 +13,7 @@
     # TODO move to home manager
     packages = with pkgs; [
       google-chrome
-      vlc
+      mpv
     ];
   };
 
