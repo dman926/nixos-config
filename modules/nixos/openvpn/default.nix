@@ -15,7 +15,7 @@ let
     # ${pkgs.coreutils-full}/bin/sleep 3
 
     # Kill traffic outside VPN
-    # ${pkgs.iptables}/bin/iptables-save > /home/dj/.config/openvpn-configs/og-iptables.rules
+    # ${pkgs.iptables}/bin/iptables-save > /home/dj/.config/openvpn/og-iptables.rules
     # ${pkgs.iptables}/bin/iptables -F
     # echo "0";
     # ${pkgs.iptables}/bin/iptables -A INPUT -i ! tun0 -j DROP
@@ -36,8 +36,8 @@ let
     # ${pkgs.coreutils-full}/bin/sleep 3
     
     # Restore iptables
-    # ${pkgs.iptables}/bin/iptables-restore < /home/dj/.config/openvpn-configs/og-iptables.rules
-    # rm /home/dj/.config/openvpn-configs/og-iptables.rules
+    # ${pkgs.iptables}/bin/iptables-restore < /home/dj/.config/openvpn/og-iptables.rules
+    # rm /home/dj/.config/openvpn/og-iptables.rules
     
     ${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf
 

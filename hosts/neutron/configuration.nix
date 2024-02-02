@@ -81,9 +81,14 @@
   # TODO: further XDG config and move to module
   services.dbus.enable = true;
   xdg = {
-    mime.defaultApplications = [
-      "x-scheme-handler/vscode" = [ "code.desktop" ];
-    ];
+    mime = {
+      addedAssociations = {
+        "x-scheme-handler/vscode" = [ "code-url-handler.desktop" ];
+      };
+      defaultApplications = {
+        "x-scheme-handler/vscode" = [ "code-url-handler.desktop" ];
+      };
+    };
     portal = {
       enable = true;
       extraPortals = with pkgs; [
@@ -112,10 +117,7 @@
   };
   services.tumbler.enable = true;
 
-  services.gnome.gnome-keyring = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-  }
+  services.gnome.gnome-keyring.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

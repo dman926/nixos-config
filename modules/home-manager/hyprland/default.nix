@@ -208,7 +208,10 @@ in
         sensitivity = -0.5;
       };
 
-      windowrulev2 = "nomaximizerequest, class:.*"; # You'll probably like this.
+      windowrulev2 = [
+        "nomaximizerequest, class:.*" # You'll probably like this.
+        "float, class: (thunar) title:^(File Operation Progress)$"
+      ];
 
       # Plugins
       "plugin:borders-plus-plus" = {

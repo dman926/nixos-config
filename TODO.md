@@ -27,7 +27,7 @@
 ## Programs
 
 - [x] [VPN](https://nixos.wiki/wiki/OpenVPN) (PIA over OpenVPN)
-  - [x] Setup module for switch to load configs from ./openvpn-configs
+  - [x] Setup module for switch to load configs
   - [x] Safely store PIA credentials
   - [ ] [Check this out for scaffolding server services](https://git.sr.ht/~rprospero/nixos-pia/tree/development/item/flake.nix) or set up my own thing, which seems like a bad idea
   - [ ] I would like a kill switch
