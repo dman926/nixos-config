@@ -210,7 +210,8 @@ in
 
       windowrulev2 = [
         "nomaximizerequest, class:.*" # You'll probably like this.
-        "float, class: (thunar) title:^(File Operation Progress)$"
+        "float, class: (thunar) title: ^(File Operation Progress)$"
+        "float, class: (org.qbittorrent.qBittorrent), title: ^(?!qBittorrent v\d.\d.\d).*$"
       ];
 
       # Plugins
