@@ -1,10 +1,13 @@
 { config, pkgs, inputs, ... }:
-
+let
+  dotkeep = builtins.toFile "keep" "";
+in
 {
   imports =
     [
       inputs.hyprland.homeManagerModules.default
       ../../modules/home-manager/hyprland
+      ../../modules/home-manager/waybar
     ];
 
   programs.home-manager.enable = true;
@@ -13,8 +16,7 @@
   home.homeDirectory = "/home/dj";
 
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hasklig" ]; })
-
+    networkmanagerapplet
     xdg-utils
     pinentry
     btop
@@ -40,7 +42,11 @@
 
   home.file = {
     # TODO: dotfiles
+    "Documents/.keep".source = dotkeep;
+    "Downloads/.keep".source = dotkeep;
   };
+
+  fonts.fontconfig.enable = true;
 
   xdg = {
     enable = true;

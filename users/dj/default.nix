@@ -16,6 +16,20 @@
     ];
   };
 
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "Hasklig" ]; })
+      font-awesome
+    ];
+    fontconfig = {
+      enable = true;
+      defaultFonts.monospace = with pkgs; [
+        "Hasklig Mono"
+      ];
+    };
+  };
+
   home-manager = {
     extraSpecialArgs = {
       inherit inputs;
@@ -25,5 +39,17 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users."dj" = import ./home.nix;
+  };
+
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  };
+
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+    ];
   };
 }

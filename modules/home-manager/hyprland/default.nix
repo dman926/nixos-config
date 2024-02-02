@@ -14,6 +14,7 @@ let
   startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
     ${pkgs.waybar}/bin/waybar &
     ${pkgs.swww}/bin/swww init &
+    ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
     ${batteryNotify}/bin/battery-notify &
   '';
   monitorMap = {

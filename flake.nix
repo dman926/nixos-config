@@ -19,6 +19,8 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
+
+    waybar.url = "github:Alexays/Waybar";
   };
 
   outputs = { self, nixpkgs, nixos-hardware, hyprland, home-manager, ... }@inputs:

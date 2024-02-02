@@ -39,10 +39,9 @@
     nano
     gnupg
     cifs-utils
+    gnome.gnome-keyring
     xdg-utils
     xdg-desktop-portal-gtk
-    xdg-desktop-portal-wlr
-    waybar
     # use eww when it gets more complex, waybar works for now
     # eww
     mako
@@ -81,13 +80,16 @@
 
   # TODO: further XDG config and move to module
   services.dbus.enable = true;
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [
-      # pkgs.xdg-desktop-portal-wlr
-      pkgs.xdg-desktop-portal-gtk
+  xdg = {
+    mime.defaultApplications = [
+      "x-scheme-handler/vscode" = [ "code.desktop" ];
     ];
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
+    };
   };
 
   environment.sessionVariables = {
@@ -104,24 +106,16 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  };
-  
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-    ];
-  };
   services.gvfs = {
     enable = true;
     package = lib.mkForce pkgs.gvfs;
   };
   services.tumbler.enable = true;
 
-  services.gnome.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring = {
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+  }
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
