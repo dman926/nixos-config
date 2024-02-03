@@ -14,6 +14,7 @@
     packages = with pkgs; [
       google-chrome
       mpv
+      wl-clipboard-x11
     ];
   };
 
