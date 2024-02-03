@@ -61,6 +61,8 @@ in
     "Downloads/.keep".source = dotkeep;
   };
 
+  home.file.".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
+
   fonts.fontconfig.enable = true;
 
   xdg = {

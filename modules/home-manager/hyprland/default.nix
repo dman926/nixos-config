@@ -22,7 +22,7 @@ let
     ${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store &
     ${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-agent-helper-1 &
     ${batteryNotify}/bin/battery-notify &
-    ${hyprland}/bin/hyprctl setcursor phinger-cursors 48 &
+    ${hyprland}/bin/hyprctl setcursor phinger-cursors 1 &
   '';
   monitorMap = {
     electron = "eDP-1,preferred,auto,1.33";
