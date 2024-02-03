@@ -2,7 +2,7 @@
 let
   command = ''${pkgs.greetd.tuigreet}/bin/tuigreet --remember \
     --time --time-format '%Y-%m-%d@%H:%M:%S' \
-    --cmd 'dbus-run-session Hyprland'
+    --cmd 'Hyprland'
   '';
 in
 {

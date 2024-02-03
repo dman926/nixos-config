@@ -65,6 +65,7 @@ in
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         "$mainMod, Q, exec, $terminal"
         "$mainMod, C, killactive, "
+        "$mainMod, M, exec, loginctl terminate-user $USER"
         "$mainMod, M, exit, "
         "$mainMod, E, exec, $fileManager"
         "$mainMod, V, togglefloating, "
