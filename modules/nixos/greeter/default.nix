@@ -1,17 +1,22 @@
 { pkgs, ... }:
 let
-  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  command = ''${pkgs.greetd.tuigreet}/bin/tuigreet --remember \
+    --time --time-format '%Y-%m-%d@%H:%M:%S' \
+    --cmd 'dbus-run-session Hyprland'
+  '';
 in
 {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${tuigreet} --time --remember --cmd 'dbus-run-session Hyprland'";
+        inherit command;
         user = "greeter";
       };
     };
   };
+
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
