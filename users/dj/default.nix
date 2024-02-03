@@ -8,14 +8,6 @@
     description = "DJ Stelmach";
     group = "dj";
     extraGroups = [ "networkmanager" "wheel" "input" ];
-    # openssh.authorizedKeys.keys = [ TODO: ed25519 and rsa keys ];
-
-    # TODO move to home manager
-    packages = with pkgs; [
-      google-chrome
-      mpv
-      wl-clipboard-x11
-    ];
   };
 
   fonts = {

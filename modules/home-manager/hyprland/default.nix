@@ -11,11 +11,18 @@ let
       fi
     done
   '';
-  startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
+  startupScript = let
+    hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  in
+  pkgs.pkgs.writeShellScriptBin "start" ''
     ${pkgs.waybar}/bin/waybar &
     ${pkgs.swww}/bin/swww init &
     ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
+    ${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store &
+    ${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store &
+    ${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-agent-helper-1 &
     ${batteryNotify}/bin/battery-notify &
+    ${hyprland}/bin/hyprctl setcursor phinger-cursors 48 &
   '';
   monitorMap = {
     electron = "eDP-1,preferred,auto,1.33";
@@ -41,7 +48,7 @@ let
     "__GLX_VENDOR_LIBRARY_NAME,nvidia"
     "WLR_NO_HARDWARE_CURSORS,1"
   ] ++baseEnv else [
-    "XCURSOR_SIZE,96"
+    "XCURSOR_SIZE,24"
   ] ++baseEnv;
 in
 {
@@ -59,7 +66,9 @@ in
       # Programs
       "$terminal" = "kitty";
       "$fileManager" = "dolphin";
+      "$cipboard" = "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
       "$menu" = "rofi -show drun";
+      "$screenshot" = "watershot -c ~/Pictures/Screenshots";
 
       bind = [
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
@@ -68,10 +77,12 @@ in
         "$mainMod, M, exec, loginctl terminate-user $USER"
         "$mainMod, M, exit, "
         "$mainMod, E, exec, $fileManager"
-        "$mainMod, V, togglefloating, "
+        "$mainMod, F, togglefloating, "
+        "$mainMod, V, exec, $clipboard"
         "$mainMod, R, exec, $menu"
         "$mainMod, P, pseudo, " # dwindle
         "$mainMod, J, togglesplit," # dwindle
+        ", Print, exec, $screenshot"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, left, movefocus, l"
@@ -156,6 +167,8 @@ in
 
         layout = "dwindle";
 
+        cursor_inactive_timeout = 60;
+
         # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
         allow_tearing = false;
       };
@@ -171,14 +184,14 @@ in
           passes = 1;
         };
 
-        drop_shadow = "yes";
+        drop_shadow = true;
         shadow_range = 4;
         shadow_render_power = 3;
         "col.shadow" = "rgba(1a1a1aee)";
       };
 
       animations = {
-        enabled = "yes";
+        enabled = true;
 
         # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
@@ -196,8 +209,8 @@ in
 
       dwindle = {
         # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-        pseudotile = "yes"; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-        preserve_split = "yes"; # you probably want this
+        pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+        preserve_split = true; # you probably want this
       };
 
       master = {
@@ -213,6 +226,14 @@ in
         "nomaximizerequest, class:.*" # You'll probably like this.
         "float, class: (thunar) title: ^(File Operation Progress)$"
         "float, class: (org.qbittorrent.qBittorrent), title: ^(?!qBittorrent v\d.\d.\d).*$"
+        
+        # xwaylandvideobridge workaround
+        # https://wiki.hyprland.org/Useful-Utilities/Screen-Sharing/#xwayland
+        "opacity 0.0 override 0.0 override,class:^(xwaylandvideobridge)$"
+        "noanim,class:^(xwaylandvideobridge)$"
+        "noinitialfocus,class:^(xwaylandvideobridge)$"
+        "maxsize 1 1,class:^(xwaylandvideobridge)$"
+        "noblur,class:^(xwaylandvideobridge)$"
       ];
 
       # Plugins
@@ -225,7 +246,7 @@ in
         border_size_1 = 10;
         border_size_2 = -1;
 
-        natural_rounding = "yes";
+        natural_rounding = true;
       };
 
       "plugin:hyprbars" = {

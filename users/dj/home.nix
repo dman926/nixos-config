@@ -18,13 +18,28 @@ in
   home.packages = with pkgs; [
     networkmanagerapplet
     xdg-utils
-    pinentry
+    pinentry-rofi
     btop
     nvitop
     stress
 
     yubikey-personalization
     sops
+
+    phinger-cursors
+
+    google-chrome
+    mpv
+    hyprpicker
+    # Clipboard
+    cliphist
+    wl-clipboard
+    wl-clipboard-x11
+    # Screenshot
+    grim
+    watershot
+    # Fix screen share
+    xwaylandvideobridge
   ];
 
   home.sessionVariables = {

@@ -117,6 +117,8 @@
   };
   services.tumbler.enable = true;
 
+  security.polkit.enable = true;
+
   services.gnome.gnome-keyring.enable = true;
 
   # This value determines the NixOS release from which the default
