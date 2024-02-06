@@ -225,7 +225,8 @@ in
       windowrulev2 = [
         "nomaximizerequest, class:.*" # You'll probably like this.
         "float, class: (thunar) title: ^(File Operation Progress)$"
-        "float, class: (org.qbittorrent.qBittorrent), title: ^(?!qBittorrent v\d.\d.\d).*$"
+        "float, class: (thunar) title: ^(Confirm to replace files)$"
+        "float, class: (org.qbittorrent.qBittorrent), title: ^(?!qBittorrent).*$"
         
         # xwaylandvideobridge workaround
         # https://wiki.hyprland.org/Useful-Utilities/Screen-Sharing/#xwayland

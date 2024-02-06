@@ -33,7 +33,7 @@
   - [ ] I would like a kill switch
 - [x] QBittorrent
 - [x] ffmpeg
-- [x] HandBrake
+- [x] My own handbrake
 - [ ] Neovim
 - [x] Discord
 - [x] [Steam](https://nixos.wiki/wiki/Steam)

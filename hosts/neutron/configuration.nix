@@ -66,7 +66,6 @@
 
     qbittorrent
     ffmpeg-full
-    handbrake
 
     discord
     # Discord screensharing with audio in Wayland
