@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# shebang should be handled with pkgs.writeShellScriptBin
 
 function print_usage {
   echo "Usage: $0 [OPTIONS] <file_prefix> <folder_name>"

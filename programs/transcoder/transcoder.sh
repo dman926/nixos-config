@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# shebang should be handled with pkgs.writeShellScriptBin
 
 for file in "$@"
 do
