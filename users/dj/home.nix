@@ -7,6 +7,7 @@ in
     [
       inputs.hyprland.homeManagerModules.default
       ../../modules/home-manager/hyprland
+      ../../modules/home-manager/vscode-fix
       ../../modules/home-manager/waybar
     ];
 
@@ -46,13 +47,11 @@ in
     EDITOR = "nano";
     GPG_TTY = "$(tty)";
     # XDG Base Directories
-    XDG_DATA_DIRS = "/usr/local/share:/usr/share";
-    XDG_CONFIG_DIRS = "/etc/xdg";
-    XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
-    XDG_CACHE_HOME = "${config.home.homeDirectory}/.cache";
-    XDG_DATE_HOME = "${config.home.homeDirectory}/.local/share";
-    XDG_STATE_HOME = "${config.home.homeDirectory}/.local/state";
-    XDG_RUNTIME_DIR = "/run/user/$UID";
+    # XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
+    # XDG_CACHE_HOME = "${config.home.homeDirectory}/.cache";
+    # XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
+    # XDG_STATE_HOME = "${config.home.homeDirectory}/.local/state";
+    # XDG_RUNTIME_DIR = "/run/user/$UID";
   };
 
   home.file = {
@@ -67,9 +66,14 @@ in
 
   xdg = {
     enable = true;
-    mimeApps.defaultApplications = {
+    # mimeApps.defaultApplications = { };
+  };
 
-    };
+  programs.bash = {
+    enable = true;
+    initExtra = ''
+      [[ -f $HOME/.profile ]] && . $HOME/.profile
+    '';
   };
 
   programs.git = {

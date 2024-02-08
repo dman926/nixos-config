@@ -41,6 +41,7 @@
     cifs-utils
     gnome.gnome-keyring
     xdg-utils
+    xdg-desktop-portal
     xdg-desktop-portal-gtk
     # use eww when it gets more complex, waybar works for now
     # eww
@@ -115,8 +116,6 @@
     package = lib.mkForce pkgs.gvfs;
   };
   services.tumbler.enable = true;
-
-  security.polkit.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
 

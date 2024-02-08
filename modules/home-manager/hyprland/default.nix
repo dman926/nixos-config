@@ -15,12 +15,14 @@ let
     hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
   in
   pkgs.pkgs.writeShellScriptBin "start" ''
+    # Get dbus session
+    ${pkgs.systemd}/bin/systemctl --user import-environment PATH && ${pkgs.systemd}/bin/systemctl --user restart xdg-desktop-portal.service xdg-desktop-portal-hyprland.service xdg-desktop-portal-gtk.service
+    # General config
     ${pkgs.waybar}/bin/waybar &
     ${pkgs.swww}/bin/swww init &
     ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
     ${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store &
     ${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store &
-    ${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-agent-helper-1 &
     ${batteryNotify}/bin/battery-notify &
     ${hyprland}/bin/hyprctl setcursor phinger-cursors 1 &
   '';
@@ -43,7 +45,7 @@ let
   env = if useNvidia.${hostName} then [
     "XCURSOR_SIZE,24"
     "LIBVA_DRIVERNAME,nvidia"
-    "XDG_SESSION_TYPE,walyland"
+    "XDG_SESSION_TYPE,wayland"
     "GDM_BACKEND,nvidia-drm"
     "__GLX_VENDOR_LIBRARY_NAME,nvidia"
     "WLR_NO_HARDWARE_CURSORS,1"

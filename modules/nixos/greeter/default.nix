@@ -1,16 +1,24 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
-  command = ''${pkgs.greetd.tuigreet}/bin/tuigreet --remember \
-    --time --time-format '%Y-%m-%d@%H:%M:%S' \
-    --cmd 'Hyprland'
-  '';
+  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  session = "${inputs.hyprland.packages."${pkgs.system}".hyprland}/bin/Hyprland";
+  username = "dj";
 in
 {
   services.greetd = {
     enable = true;
     settings = {
+      initial_session = {
+        command = "${session}";
+        user = "${username}";
+      };
       default_session = {
-        inherit command;
+        command = ''${tuigreet} \
+        --asterisks \
+        --remember \
+        --time --time-format '%Y-%m-%d@%H:%M:%S' \
+        --cmd ${session}
+        '';
         user = "greeter";
       };
     };

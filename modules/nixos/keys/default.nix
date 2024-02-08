@@ -8,9 +8,12 @@
   services.pcscd.enable = true;
 
   # Enable u2f PAM module for login and sudo
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
+  security.pam = {
+    u2f.enable = true;
+    services = {
+      login.u2fAuth = true;
+      sudo.u2fAuth = true;
+    };
   };
 
   programs.gnupg.agent = {

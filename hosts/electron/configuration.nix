@@ -39,6 +39,7 @@
     cifs-utils
     gnome.gnome-keyring
     xdg-utils
+    xdg-desktop-portal
     xdg-desktop-portal-gtk
     # use eww when it gets more complex, waybar works for now
     # eww
@@ -50,7 +51,6 @@
     # Wayland deps
     libsForQt5.qt5.qtwayland # qt5-wayland
     libsForQt5.qt5ct
-    libsForQt5.polkit-kde-agent
 
     efibootmgr
     # dolphin
@@ -107,8 +107,6 @@
     package = lib.mkForce pkgs.gvfs;
   };
   services.tumbler.enable = true;
-
-  security.polkit.enable = true;
   
   services.gnome.gnome-keyring.enable = true;
 
