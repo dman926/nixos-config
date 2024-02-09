@@ -10,3 +10,5 @@ The base system is stable and complete with my usual items:
 - Steam
 - Discord
 - ffmpeg with CUDA acceleration
+
+There's still a little work to do to fully customize it, but it's more than useable.

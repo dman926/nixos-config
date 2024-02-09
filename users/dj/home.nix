@@ -1,6 +1,24 @@
 { config, pkgs, inputs, ... }:
 let
   dotkeep = builtins.toFile "keep" "";
+  oh-my-posh-themes = let
+    resources = pkgs.fetchFromGitHub {
+      owner = "JanDeDobbeleer";
+      repo = "oh-my-posh";
+      rev = "v19.8.3";
+      hash = "sha256-sYXg/t8U+uu1kYtEH6j7s/dCQJGuG880ruQFrvB5GS8="; # pkgs.lib.fakeHash;
+    };
+    theme_names =
+      (builtins.filter (name: !(isNull (builtins.match ".+omp.json$" name)))
+        (builtins.attrNames (builtins.readDir "${resources}/themes")));
+    make_theme = (name: {
+      name = ".config/oh-my-posh-themes/${name}";
+      value = {
+        source = "${resources}/themes/${name}";
+      };
+    });
+  in
+    builtins.listToAttrs (map make_theme theme_names);
 in
 {
   imports =
@@ -31,6 +49,10 @@ in
 
     google-chrome
     mpv
+    oh-my-posh
+    blender
+    cura
+    openscad
     hyprpicker
     # Clipboard
     cliphist
@@ -58,9 +80,10 @@ in
     # TODO: dotfiles
     "Documents/.keep".source = dotkeep;
     "Downloads/.keep".source = dotkeep;
-  };
+    # Cursor
+    ".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
+  } // oh-my-posh-themes;
 
-  home.file.".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
 
   fonts.fontconfig.enable = true;
 
@@ -73,6 +96,8 @@ in
     enable = true;
     initExtra = ''
       [[ -f $HOME/.profile ]] && . $HOME/.profile
+
+      [[ -f $HOME/.config/oh-my-posh-themes/night-owl.omp.json ]] && eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init bash --config $HOME/.config/oh-my-posh-themes/night-owl.omp.json)"
     '';
   };
 
