@@ -2,15 +2,14 @@
 
 # shebang should be handled with pkgs.writeShellScriptBin
 
-for file in "$@"
-do
+for file in "$@"; do
   if [ ! -f "$file" ]; then
     echo "Does not exist. Skipping: $file"
     continue
   fi
 
-	base=$(basename "$file")
-	filename="${base%.*}"
+  base=$(basename "$file")
+  filename="${base%.*}"
 
   echo "Processing $filename"
 
@@ -19,42 +18,45 @@ do
   # Get chunks to look for bars
   total_runtime=$(ffprobe -v error -select_streams v:0 -show_entries format=duration -of csv=p=0 "$file" | awk '{printf "%d", $0}')
   trim_time=10
-  available_seconds=$(( total_runtime - $trim_time * 2 ))
+  available_seconds=$((total_runtime - $trim_time * 2))
   if [[ $total_runtime < 900 ]]; then # runtime less than 15 minutes
-    max_sub_sections=$(( total_runtime / 30 ))
-    max_sub_sections=$(( max_sub_sections < 10 ? max_sub_sections : 10  ))
+    max_sub_sections=$((total_runtime / 30))
+    max_sub_sections=$((max_sub_sections < 10 ? max_sub_sections : 10))
   elif [[ $total_runtime < 3600 ]]; then # runtime less than 1 hour
     max_sub_sections=10
   else
-    max_sub_sections=$(( total_runtime / 3600 * 5 ))
+    max_sub_sections=$((total_runtime / 3600 * 5))
   fi
-  min_gap_seconds=$(( available_seconds / (max_sub_sections - 1) ))
+  min_gap_seconds=$((available_seconds / (max_sub_sections - 1)))
   sub_section_duration=30
   skip_times=()
   current_time=$trim_time
-  for (( i = 1; i <= max_sub_sections; i++ )); do
-    current_time=$(( current_time + min_gap_seconds ))
+  for ((i = 1; i <= max_sub_sections; i++)); do
+    current_time=$((current_time + min_gap_seconds))
 
-    if (( current_time <= available_seconds )); then
-        skip_times+=($current_time)
+    if ((current_time <= available_seconds)); then
+      skip_times+=($current_time)
     else
-        break
+      break
     fi
   done
 
   # Original video stream widthxheight
   dimensions=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$file")
 
-  IFS='x' read -r dimension_w dimension_h <<< "$dimensions"
+  IFS='x' read -r dimension_w dimension_h <<<"$dimensions"
 
   crop_factor=""
   scale_factor=""
   smallest_width_height_sum=0
-  
+
   for skip_time in "${skip_times[@]}"; do
-    { read internal_crop_factor; read internal_scale_factor; } <<< $(ffmpeg -nostats -ss $skip_time -i "$file" -t 30 -vf cropdetect=reset=1 -f null - 2>&1 | \
-      grep -v '^\[out#0/null @' | \
-      sed -ne 's/\[[^][]*\] //p' | \
+    {
+      read internal_crop_factor
+      read internal_scale_factor
+    } <<<$(ffmpeg -nostats -ss $skip_time -i "$file" -t 30 -vf cropdetect=reset=1 -f null - 2>&1 |
+      grep -v '^\[out#0/null @' |
+      sed -ne 's/\[[^][]*\] //p' |
       awk -v old_w=$dimension_w -v old_h=$dimension_h '
         BEGIN {
           max = 0
@@ -87,7 +89,7 @@ do
 
     # Extract the width and height from the crop factor
     width_height=$(echo $internal_scale_factor | cut -d':' -f1-2)
-    width_height_sum=$(( ${width_height%%:*} + ${width_height##*:} ))  # Sum of width and height
+    width_height_sum=$((${width_height%%:*} + ${width_height##*:})) # Sum of width and height
 
     # Check if the current crop factor is the smallest so far
     if [[ -z $scale_factor || $width_height_sum -gt $smallest_width_height_sum ]]; then
@@ -127,14 +129,14 @@ do
         "-map 0:" a[1] " -c:s:" track_num_0 " copy" \
     }'))
 
-  # Process  
+  # Process
   ffmpeg -y -v error -stats \
     -hwaccel cuda \
     -i "$file" \
     -map 0:v $filter-c:v hevc_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 30 -b:v 0 -profile:v main \
     ${audioTracks[@]} \
     ${subtitleTracks[@]} \
-    "processing/${filename}.mkv" < /dev/null && \
+    "processing/${filename}.mkv" </dev/null &&
     mv "processing/${filename}.mkv" "processed/${filename}.mkv"
 
   echo "Processed $filename"

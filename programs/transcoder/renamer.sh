@@ -29,19 +29,22 @@ dry_run=false
 # Parse options
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-    --dry-run) dry_run=true ;;
-    -h|--help) print_usage; exit 0 ;;
-    *)
-      if [ -z "$file_prefix" ]; then
-        file_prefix=$1
-      elif [ -z "$folder_name" ]; then
-        folder_name=$1
-      else
-        echo "Invalid argument: $1"
-        print_usage
-        exit 1
-      fi
-      ;;
+  --dry-run) dry_run=true ;;
+  -h | --help)
+    print_usage
+    exit 0
+    ;;
+  *)
+    if [ -z "$file_prefix" ]; then
+      file_prefix=$1
+    elif [ -z "$folder_name" ]; then
+      folder_name=$1
+    else
+      echo "Invalid argument: $1"
+      print_usage
+      exit 1
+    fi
+    ;;
   esac
   shift
 done
@@ -66,12 +69,11 @@ IFS=$'\n' files=($(sort <<<"${files[*]}"))
 unset IFS
 
 total_files=${#files[@]}
-padding=$(( ${#total_files} > 2 ? ${#total_files} : 2 ))
+padding=$((${#total_files} > 2 ? ${#total_files} : 2))
 
 max_filename_length=0
 
-for file in "${files[@]}"
-do
+for file in "${files[@]}"; do
   if [ ${#file} -gt $max_filename_length ]; then
     max_filename_length=${#file}
   fi
@@ -79,12 +81,11 @@ done
 
 COUNT=1
 
-for file in "${files[@]}"
-do
+for file in "${files[@]}"; do
   old_name="$file"
   new_name="${file_prefix}$(printf "%0${padding}d" $COUNT).mkv"
 
   rename_file "$old_name" "$new_name"
 
-  COUNT=$((COUNT+1))
+  COUNT=$((COUNT + 1))
 done
