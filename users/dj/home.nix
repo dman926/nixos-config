@@ -49,6 +49,7 @@ in
     phinger-cursors
 
     google-chrome
+    geeqie
     mpv
     oh-my-posh
     blender
@@ -61,7 +62,7 @@ in
     wl-clipboard-x11
     # Screenshot
     grim
-    watershot
+    hyprshot
     # Fix screen share
     xwaylandvideobridge
   ];
@@ -69,12 +70,13 @@ in
   home.sessionVariables = {
     EDITOR = "nano";
     GPG_TTY = "$(tty)";
-    # XDG Base Directories
-    # XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
-    # XDG_CACHE_HOME = "${config.home.homeDirectory}/.cache";
-    # XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
-    # XDG_STATE_HOME = "${config.home.homeDirectory}/.local/state";
-    # XDG_RUNTIME_DIR = "/run/user/$UID";
+    HYPRSHOT_DIR = "$HOME/Pictures/Screenshots";
+    # XDG User Directories
+    XDG_DESKTOP_DIR = "$HOME/Desktop";
+    XDG_DOCUMENTS_DIR = "$HOME/Documents";
+    XDG_DOWNLOAD_DIR = "$HOME/Downloads";
+    XDG_PICTURES_DIR = "$HOME/Pictures";
+    XDG_VIDEOS_DIR = "$HOME/Videos";
   };
 
   home.file = {

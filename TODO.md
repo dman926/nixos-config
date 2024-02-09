@@ -3,7 +3,7 @@
 ## Config
 
 - [x] Electron config
-  - [ ] Top row hotkeys are not working
+  - [ ] Top row hotkeys are not working (F1-F8 multi-media keys). Probably also related to Neutron USB soundcard volume controls not working. [Potential fix](https://github.com/NixOS/nixpkgs/issues/24297#issuecomment-538698801). [See pw-volume](https://github.com/smasher164/pw-volume) 
 - [x] Neutron config
   - [x] [Nvidia GPU](https://nixos.wiki/wiki/Nvidia)
   - [x] [Cuda](https://nixos.wiki/wiki/CUDA) (I think I got it but gotta check)
@@ -13,6 +13,7 @@
 - [x] General
   - [x] XDG
     - [x] XDG Base Directory Spec
+    - [x] XDG User Directory Spec
     - [x] Default Apps
   - [x] Config modularization
   - [x] Home dir config

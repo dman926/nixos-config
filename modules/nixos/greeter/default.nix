@@ -1,17 +1,14 @@
 { pkgs, inputs, ... }:
 let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-  session = "${inputs.hyprland.packages."${pkgs.system}".hyprland}/bin/Hyprland";
-  username = "dj";
+  # session really should be `"${inputs.hyprland.packages."${pkgs.system}".hyprland}/bin/Hyprland";`
+  # but I like tuigreet to show the command as `Hyprland`
+  session = "Hyprland";
 in
 {
   services.greetd = {
     enable = true;
     settings = {
-      initial_session = {
-        command = "${session}";
-        user = "${username}";
-      };
       default_session = {
         command = ''${tuigreet} \
         --asterisks \

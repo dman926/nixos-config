@@ -15,9 +15,6 @@ let
     hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
   in
   pkgs.pkgs.writeShellScriptBin "start" ''
-    # Get dbus session
-    ${pkgs.systemd}/bin/systemctl --user import-environment PATH && ${pkgs.systemd}/bin/systemctl --user restart xdg-desktop-portal.service xdg-desktop-portal-hyprland.service xdg-desktop-portal-gtk.service
-    # General config
     ${pkgs.waybar}/bin/waybar &
     ${pkgs.swww}/bin/swww init &
     ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
@@ -62,15 +59,21 @@ in
       inputs.hyprland-plugins.packages."${pkgs.system}".hyprbars
     ];
 
+    # Enable session
+    systemd = {
+      enable = true;
+      variables = [ "-all" ];
+    };
+
     settings = {
       "$mainMod" = "SUPER";
+      "$shiftMod" = "SUPERSHIFT";
 
       # Programs
       "$terminal" = "kitty";
       "$fileManager" = "dolphin";
       "$cipboard" = "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
       "$menu" = "rofi -show drun";
-      "$screenshot" = "watershot -c ~/Pictures/Screenshots";
 
       bind = [
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
@@ -84,8 +87,12 @@ in
         "$mainMod, R, exec, $menu"
         "$mainMod, P, pseudo, " # dwindle
         "$mainMod, J, togglesplit," # dwindle
-        ", Print, exec, $screenshot"
 
+        # Screenshot a window, monitor, or region
+        "$mainMod, PRINT, exec, hyprshot -m window"
+        "$shiftMod, PRINT, exec, hyprshot -m output"
+        ", PRINT, exec, hyprshot -m region"
+       
         # Move focus with mainMod + arrow keys
         "$mainMod, left, movefocus, l"
         "$mainMod, right, movefocus, r"
