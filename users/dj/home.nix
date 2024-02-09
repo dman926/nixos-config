@@ -41,6 +41,7 @@ in
     btop
     nvitop
     stress
+    neofetch
 
     yubikey-personalization
     sops
