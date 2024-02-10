@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 let
   dotkeep = builtins.toFile "keep" "";
+  dotnpmrc = builtins.toFile ".npmrc" ''prefix = ''${HOME}/.npm-packages'';
   oh-my-posh-themes = let
     resources = pkgs.fetchFromGitHub {
       owner = "JanDeDobbeleer";
@@ -65,6 +66,14 @@ in
     hyprshot
     # Fix screen share
     xwaylandvideobridge
+
+    # Programming
+    # These really should be in a shell.nix,
+    # but I don't like the idea making a bunch of them
+    nodejs_20
+    nodePackages.pnpm
+    go
+    python3
   ];
 
   home.sessionVariables = {
@@ -83,6 +92,7 @@ in
     # TODO: dotfiles
     "Documents/.keep".source = dotkeep;
     "Downloads/.keep".source = dotkeep;
+    ".npmrc".source = dotnpmrc;
     # Cursor
     ".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
   } // oh-my-posh-themes;
@@ -101,6 +111,10 @@ in
       [[ -f $HOME/.profile ]] && . $HOME/.profile
 
       [[ -f $HOME/.config/oh-my-posh-themes/night-owl.omp.json ]] && eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init bash --config $HOME/.config/oh-my-posh-themes/night-owl.omp.json)"
+
+      # NPM modifications for global packages
+      export PATH=~/.npm-packages/bin:$PATH
+      export NODE_PATH=~/.npm-packages/lib/node_modules
     '';
   };
 

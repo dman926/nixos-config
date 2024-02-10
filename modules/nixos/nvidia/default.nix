@@ -1,6 +1,14 @@
 { config, lib, pkgs, ... }:
-# Be sure to add pkgs.cudaPackages.cudatoolkit
+
 {
+  environment.systemPackages = with pkgs; [
+    # Video acceleration
+    libva
+
+    # CUDA
+    cudaPackages.cudatoolkit
+  ];
+
   hardware.opengl = {
     enable = true;
     driSupport = true;
