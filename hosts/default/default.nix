@@ -50,7 +50,7 @@
 
     pavucontrol
   ];
-  
+
 
   # TODO: further XDG config and move to module
   services.dbus.enable = true;

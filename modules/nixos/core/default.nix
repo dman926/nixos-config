@@ -1,9 +1,9 @@
 { ... }:
 
 {
-    imports = [
-        ./i18n.nix
-        ./grub.nix
-        ./networking.nix
-    ];
+  imports = [
+    ./i18n.nix
+    ./grub.nix
+    ./networking.nix
+  ];
 }

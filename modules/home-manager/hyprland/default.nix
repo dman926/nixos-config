@@ -11,18 +11,19 @@ let
       fi
     done
   '';
-  startupScript = let
-    hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  in
-  pkgs.pkgs.writeShellScriptBin "start" ''
-    ${pkgs.waybar}/bin/waybar &
-    ${pkgs.swww}/bin/swww init &
-    ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
-    ${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store &
-    ${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store &
-    ${batteryNotify}/bin/battery-notify &
-    ${hyprland}/bin/hyprctl setcursor phinger-cursors 1 &
-  '';
+  startupScript =
+    let
+      hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    in
+    pkgs.pkgs.writeShellScriptBin "start" ''
+      ${pkgs.waybar}/bin/waybar &
+      ${pkgs.swww}/bin/swww init &
+      ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
+      ${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store &
+      ${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store &
+      ${batteryNotify}/bin/battery-notify &
+      ${hyprland}/bin/hyprctl setcursor phinger-cursors 1 &
+    '';
   monitorMap = {
     electron = "eDP-1,preferred,auto,1.33";
     neutron = [
@@ -39,16 +40,17 @@ let
   baseEnv = [
     "QT_QPA_PLATFORMTHEME,qt5ct"
   ];
-  env = if useNvidia.${hostName} then [
-    "XCURSOR_SIZE,24"
-    "LIBVA_DRIVERNAME,nvidia"
-    "XDG_SESSION_TYPE,wayland"
-    "GDM_BACKEND,nvidia-drm"
-    "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-    "WLR_NO_HARDWARE_CURSORS,1"
-  ] ++baseEnv else [
-    "XCURSOR_SIZE,24"
-  ] ++baseEnv;
+  env =
+    if useNvidia.${hostName} then [
+      "XCURSOR_SIZE,24"
+      "LIBVA_DRIVERNAME,nvidia"
+      "XDG_SESSION_TYPE,wayland"
+      "GDM_BACKEND,nvidia-drm"
+      "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+      "WLR_NO_HARDWARE_CURSORS,1"
+    ] ++ baseEnv else [
+      "XCURSOR_SIZE,24"
+    ] ++ baseEnv;
 in
 {
   wayland.windowManager.hyprland = {
@@ -92,7 +94,7 @@ in
         "$mainMod, PRINT, exec, hyprshot -m window"
         "$shiftMod, PRINT, exec, hyprshot -m output"
         ", PRINT, exec, hyprshot -m region"
-       
+
         # Move focus with mainMod + arrow keys
         "$mainMod, left, movefocus, l"
         "$mainMod, right, movefocus, r"
@@ -186,7 +188,7 @@ in
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
         rounding = 10;
-    
+
         blur = {
           enabled = true;
           size = 3;
@@ -237,7 +239,7 @@ in
         "float, class: (thunar) title: ^(File Operation Progress)$"
         "float, class: (thunar) title: ^(Confirm to replace files)$"
         "float, class: (org.qbittorrent.qBittorrent), title: ^(?!qBittorrent).*$"
-        
+
         # xwaylandvideobridge workaround
         # https://wiki.hyprland.org/Useful-Utilities/Screen-Sharing/#xwayland
         "opacity 0.0 override 0.0 override,class:^(xwaylandvideobridge)$"

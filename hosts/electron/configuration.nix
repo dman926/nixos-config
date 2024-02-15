@@ -5,10 +5,10 @@
     [
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      
+
       ../default
       ../../users/dj
-      
+
       inputs.sops-nix.nixosModules.sops
       ../../modules/nixos/secrets
       ../../modules/nixos/core
@@ -18,7 +18,7 @@
       ../../modules/nixos/sound
     ];
 
-  networking.hostName = "electron";  
+  networking.hostName = "electron";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -68,7 +68,7 @@
         "sway/scratchpad" = {
           format = "{icon} {count}";
           show-empty = false;
-          format-icons = ["" ""];
+          format-icons = [ "" "" ];
           tooltip = true;
           tooltip-format = "{app}: {title}";
         };
@@ -127,18 +127,18 @@
           critical-threshold = 80;
           # format-critical = "{temperatureC}°C {icon}";
           format = "{temperatureC}°C {icon}";
-          format-icons = ["" "" ""];
+          format-icons = [ "" "" "" ];
         };
         backlight = {
           # device = "acpi_video1";
           format = "{percent}% {icon}";
-          format-icons = ["" "" "" "" "" "" "" "" ""];
+          format-icons = [ "" "" "" "" "" "" "" "" "" ];
         };
         battery = {
           states = {
-              # good = 95;
-              warning = 30;
-              critical = 15;
+            # good = 95;
+            warning = 30;
+            critical = 15;
           };
           format = "{capacity}% {icon}";
           format-charging = "{capacity}% ";
@@ -146,7 +146,7 @@
           format-alt = "{time} {icon}";
           # format-good = ""; # An empty format will hide the module
           # format-full = "";
-          format-icons = ["" "" "" "" ""];
+          format-icons = [ "" "" "" "" "" ];
         };
         "battery#bat2" = {
           bat = "BAT2";
@@ -175,7 +175,7 @@
             phone = "";
             portable = "";
             car = "";
-            default = ["" "" ""];
+            default = [ "" "" "" ];
           };
           on-click = "pavucontrol";
         };

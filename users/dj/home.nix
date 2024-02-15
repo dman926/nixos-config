@@ -2,23 +2,24 @@
 let
   dotkeep = builtins.toFile "keep" "";
   dotnpmrc = builtins.toFile ".npmrc" ''prefix = ''${HOME}/.npm-packages'';
-  oh-my-posh-themes = let
-    resources = pkgs.fetchFromGitHub {
-      owner = "JanDeDobbeleer";
-      repo = "oh-my-posh";
-      rev = "v19.8.3";
-      hash = "sha256-sYXg/t8U+uu1kYtEH6j7s/dCQJGuG880ruQFrvB5GS8="; # pkgs.lib.fakeHash;
-    };
-    theme_names =
-      (builtins.filter (name: !(isNull (builtins.match ".+omp.json$" name)))
-        (builtins.attrNames (builtins.readDir "${resources}/themes")));
-    make_theme = (name: {
-      name = ".config/oh-my-posh-themes/${name}";
-      value = {
-        source = "${resources}/themes/${name}";
+  oh-my-posh-themes =
+    let
+      resources = pkgs.fetchFromGitHub {
+        owner = "JanDeDobbeleer";
+        repo = "oh-my-posh";
+        rev = "v19.8.3";
+        hash = "sha256-sYXg/t8U+uu1kYtEH6j7s/dCQJGuG880ruQFrvB5GS8="; # pkgs.lib.fakeHash;
       };
-    });
-  in
+      theme_names =
+        (builtins.filter (name: !(isNull (builtins.match ".+omp.json$" name)))
+          (builtins.attrNames (builtins.readDir "${resources}/themes")));
+      make_theme = (name: {
+        name = ".config/oh-my-posh-themes/${name}";
+        value = {
+          source = "${resources}/themes/${name}";
+        };
+      });
+    in
     builtins.listToAttrs (map make_theme theme_names);
 in
 {

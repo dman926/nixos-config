@@ -22,8 +22,8 @@
 
     # Disable features not available with GTX 1080
     powerManagement.enable = false; # Experimental
-    powerManagement.finegrained = false;  # Experimental
-    open = false;  # Alpha
+    powerManagement.finegrained = false; # Experimental
+    open = false; # Alpha
 
     nvidiaSettings = true;
 

@@ -1,7 +1,7 @@
 { config, inputs, pkgs, ... }:
 
 {
-  users.groups.dj = {};
+  users.groups.dj = { };
 
   users.users.dj = {
     isNormalUser = true;

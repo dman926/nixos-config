@@ -29,6 +29,8 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+
       nixosConfigurations = {
         electron = nixpkgs.lib.nixosSystem {
           inherit system;
