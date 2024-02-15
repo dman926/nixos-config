@@ -20,9 +20,9 @@
   - [x] Keys
     - [x] SSH Key
     - [x] GPG Key / [Yubikey Setup](https://rzetterberg.github.io/yubikey-gpg-nixos.html)
-    - [ ] [Yubikey PAM](https://nixos.wiki/wiki/Yubikey)
+    - [x] [Yubikey PAM](https://nixos.wiki/wiki/Yubikey)
       - [x] Sudo
-      - [ ] Login with TuiGreeter
+      - [x] Login with TuiGreeter
   - [x] Secrets with [sops-nix](https://github.com/Mic92/sops-nix)
   - [x] Low battery notification daemon
 
@@ -41,7 +41,7 @@
 - [x] Neovim
 - [x] Discord
 - [x] [Steam](https://nixos.wiki/wiki/Steam)
-- [ ] Programming
-  - [ ] NVM/Node
-  - [ ] Python
-  - [ ] Go
+- [x] Programming
+  - [x] NVM/Node
+  - [x] Python
+  - [x] Go

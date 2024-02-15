@@ -69,23 +69,23 @@ in
 
     # Programming
     # These really should be in a shell.nix,
-    # but I don't like the idea making a bunch of them
+    # but I don't like the idea making a bunch of them    
     nodejs_20
-    nodePackages.pnpm
     go
-    python3
+    # Python/PDM: See WORKSPACE/programs/dev-env/pdm-shell.nix
   ];
 
   home.sessionVariables = {
-    EDITOR = "nano";
-    GPG_TTY = "$(tty)";
-    HYPRSHOT_DIR = "$HOME/Pictures/Screenshots";
     # XDG User Directories
     XDG_DESKTOP_DIR = "$HOME/Desktop";
     XDG_DOCUMENTS_DIR = "$HOME/Documents";
     XDG_DOWNLOAD_DIR = "$HOME/Downloads";
     XDG_PICTURES_DIR = "$HOME/Pictures";
     XDG_VIDEOS_DIR = "$HOME/Videos";
+    # General
+    EDITOR = "nano";
+    GPG_TTY = "$(tty)";
+    HYPRSHOT_DIR = "${config.home.sessionVariables.XDG_PICTURES_DIR}/Screenshots";
   };
 
   home.file = {
@@ -96,7 +96,6 @@ in
     # Cursor
     ".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
   } // oh-my-posh-themes;
-
 
   fonts.fontconfig.enable = true;
 
@@ -113,8 +112,13 @@ in
       [[ -f $HOME/.config/oh-my-posh-themes/night-owl.omp.json ]] && eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init bash --config $HOME/.config/oh-my-posh-themes/night-owl.omp.json)"
 
       # NPM modifications for global packages
-      export PATH=~/.npm-packages/bin:$PATH
-      export NODE_PATH=~/.npm-packages/lib/node_modules
+      export PATH=$HOME/.npm-packages/bin:$PATH
+      export NODE_PATH=$HOME/.npm-packages/lib/node_modules
+
+      # Go modifications for global packages
+      export GOPATH=$HOME/.go
+      export GO111MODULE=auto
+      export PATH=$GOPATH/bin:$PATH
     '';
   };
 
@@ -128,6 +132,11 @@ in
     };
     aliases = {
       gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f";
+    };
+    extraConfig = {
+      push = {
+        autoSetupRemove = true;
+      };
     };
   };
 
