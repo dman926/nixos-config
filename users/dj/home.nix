@@ -2,31 +2,13 @@
 let
   dotkeep = builtins.toFile "keep" "";
   dotnpmrc = builtins.toFile ".npmrc" ''prefix = ''${HOME}/.npm-packages'';
-  oh-my-posh-themes =
-    let
-      resources = pkgs.fetchFromGitHub {
-        owner = "JanDeDobbeleer";
-        repo = "oh-my-posh";
-        rev = "v19.8.3";
-        hash = "sha256-sYXg/t8U+uu1kYtEH6j7s/dCQJGuG880ruQFrvB5GS8="; # pkgs.lib.fakeHash;
-      };
-      theme_names =
-        (builtins.filter (name: !(isNull (builtins.match ".+omp.json$" name)))
-          (builtins.attrNames (builtins.readDir "${resources}/themes")));
-      make_theme = (name: {
-        name = ".config/oh-my-posh-themes/${name}";
-        value = {
-          source = "${resources}/themes/${name}";
-        };
-      });
-    in
-    builtins.listToAttrs (map make_theme theme_names);
 in
 {
   imports =
     [
       inputs.hyprland.homeManagerModules.default
       ../../modules/home-manager/hyprland
+      ../../modules/home-manager/oh-my-posh
       ../../modules/home-manager/vscode-fix
       ../../modules/home-manager/waybar
     ];
@@ -53,7 +35,6 @@ in
     google-chrome
     geeqie
     mpv
-    oh-my-posh
     blender
     cura
     openscad
@@ -96,7 +77,7 @@ in
     ".npmrc".source = dotnpmrc;
     # Cursor
     ".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
-  } // oh-my-posh-themes;
+  };
 
   fonts.fontconfig.enable = true;
 
@@ -109,8 +90,6 @@ in
     enable = true;
     initExtra = ''
       [[ -f $HOME/.profile ]] && . $HOME/.profile
-
-      [[ -f $HOME/.config/oh-my-posh-themes/night-owl.omp.json ]] && eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init bash --config $HOME/.config/oh-my-posh-themes/night-owl.omp.json)"
 
       # NPM modifications for global packages
       export PATH=$HOME/.npm-packages/bin:$PATH
@@ -144,8 +123,27 @@ in
   programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhs;
-    # fix to get vscode to run on wayland
-    userSettings = { "window.titleBarStyle" = "custom"; };
+    userSettings = {
+      window.titleBarStyle = "custom"; # fix to get vscode to run on wayland
+      editor = {
+        fontFamily = "'Hasklug Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
+        fontLigatures = true;
+        tabSize = 2;
+      };
+      # Language defaults
+      "[typescript]" = {
+        editor.defaultFormatter = "esbenp.prettier-vscode";
+      };
+      "[typescriptreact]" = {
+        editor.defaultFormatter = "esbenp.prettier-vscode";
+      };
+      "[javascript]" = {
+        editor.defaultFormatter = "esbenp.prettier-vscode";
+      };
+      "[javascriptreact]" = {
+        editor.defaultFormatter = "esbenp.prettier-vscode";
+      };
+    };
   };
 
   programs.neovim = {

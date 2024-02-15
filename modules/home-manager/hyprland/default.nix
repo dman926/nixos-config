@@ -1,4 +1,4 @@
-{ pkgs, config, inputs, hostName, ... }:
+{ pkgs, inputs, hostName, ... }:
 let
   batteryNotify = pkgs.pkgs.writeShellScriptBin "battery-notify" ''
     while true; do
