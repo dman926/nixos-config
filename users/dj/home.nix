@@ -117,6 +117,15 @@ in
       push = {
         autoSetupRemove = true;
       };
+      pull = {
+        rebase = true;
+      };
+      fetch = {
+        prune = true;
+      };
+      init = {
+        defaultBranch = "main";
+      };
     };
   };
 
@@ -124,24 +133,25 @@ in
     enable = true;
     package = pkgs.vscode.fhs;
     userSettings = {
-      window.titleBarStyle = "custom"; # fix to get vscode to run on wayland
-      editor = {
-        fontFamily = "'Hasklug Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
-        fontLigatures = true;
-        tabSize = 2;
-      };
+      "window.titleBarStyle" = "custom"; # fix to get vscode to run on wayland
+      "editor.fontFamily" = "'Hasklug Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
+      "editor.fontLigatures" = true;
+      "editor.tabSize" = 2;
       # Language defaults
       "[typescript]" = {
-        editor.defaultFormatter = "esbenp.prettier-vscode";
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
       "[typescriptreact]" = {
-        editor.defaultFormatter = "esbenp.prettier-vscode";
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
       "[javascript]" = {
-        editor.defaultFormatter = "esbenp.prettier-vscode";
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
       "[javascriptreact]" = {
-        editor.defaultFormatter = "esbenp.prettier-vscode";
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+      "[markdown]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
     };
   };
