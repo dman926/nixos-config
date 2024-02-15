@@ -1,20 +1,18 @@
 { inputs, ... }:
-
+# Framework 16
 {
   imports =
     [
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
+      # inputs.nixos-hardware.nixosModules.framework-16
+      # ./hardware-configuration.nix
 
       ../default
       ../../users/dj
 
-      inputs.sops-nix.nixosModules.sops
       ../../modules/nixos/secrets
       ../../modules/nixos/core
       ../../modules/nixos/greeter
       ../../modules/nixos/keys
-      ../../modules/nixos/nvidia
       ../../modules/nixos/openvpn
       ../../modules/nixos/sound
       ../../modules/nixos/steam

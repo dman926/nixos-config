@@ -1,9 +1,8 @@
 { inputs, ... }:
-# Framework 13 | 12th Gen
+# Desktop | Nvidia GTX 1080
 {
   imports =
     [
-      inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
       ./hardware-configuration.nix
 
       ../default
@@ -13,11 +12,13 @@
       ../../modules/nixos/core
       ../../modules/nixos/greeter
       ../../modules/nixos/keys
+      ../../modules/nixos/nvidia
       ../../modules/nixos/openvpn
       ../../modules/nixos/sound
+      ../../modules/nixos/steam
     ];
 
-  networking.hostName = "electron";
+  networking.hostName = "hydrogen";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

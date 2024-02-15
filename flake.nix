@@ -27,36 +27,30 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+
+      configs =
+        let
+          # List of directory names in ./hosts
+          hostnames = (builtins.attrNames (nixpkgs.lib.attrsets.filterAttrs (name: val: val == "directory") (builtins.readDir ./hosts)));
+          make_config = (hostname: {
+            name = hostname;
+            value = nixpkgs.lib.nixosSystem {
+              inherit system;
+              specialArgs = {
+                inherit inputs;
+                inherit system;
+              };
+              modules = [
+                ./hosts/${hostname}/configuration.nix
+              ];
+            };
+          });
+        in
+        builtins.listToAttrs (map make_config hostnames);
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
 
-      nixosConfigurations = {
-        electron = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-            inherit system;
-          };
-          modules = [
-            nixos-hardware.nixosModules.framework-12th-gen-intel
-            ./hosts/electron/configuration.nix
-            hyprland.nixosModules.default
-            home-manager.nixosModules.default
-          ];
-        };
-        neutron = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-            inherit system;
-          };
-          modules = [
-            ./hosts/neutron/configuration.nix
-            hyprland.nixosModules.default
-            home-manager.nixosModules.default
-          ];
-        };
-      };
+      nixosConfigurations = configs;
     };
 }
