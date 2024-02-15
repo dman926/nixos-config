@@ -67,7 +67,7 @@ let
             WAYLAND_DISPLAY = "wayland-0";
           };
           serviceConfig = {
-            ExecStart = ''${pkgs.openvpn}/bin/openvpn --script-security 2 --config ${resources}/${name} --auth-user-pass /home/dj/.config/openvpn/pia-auth --up "${upScript}" --down "${downScript}" --block-ipv6'';
+            ExecStart = ''${pkgs.openvpn}/bin/openvpn --script-security 2 --config ${resources}/${name} --auth-user-pass /run/secrets/pia/auth-user-pass --up "${upScript}" --down "${downScript}" --block-ipv6'';
             # TODO: killswitch monitor
             # ExecStartPost = '' '';
 
