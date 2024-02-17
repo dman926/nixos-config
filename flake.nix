@@ -23,7 +23,7 @@
     waybar.url = "github:Alexays/Waybar";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, hyprland, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -41,7 +41,7 @@
                 inherit system;
               };
               modules = [
-                ./hosts/${hostname}/configuration.nix
+                ./hosts/${hostname}
               ];
             };
           });

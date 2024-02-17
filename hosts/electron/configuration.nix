@@ -1,5 +1,5 @@
 { inputs, ... }:
-# Framework 13 | 12th Gen
+
 {
   imports =
     [

@@ -2,9 +2,16 @@
 
 ## Config
 
+- [x] Quark config (minimal live cd iso)
+  - In the future, I will want to preload tools I use with it. Possible tools:
+    - Basic ISOs and Etcher or a lightweight load script. It would be cool if I were able to dynamically load and multiboot on the same USB drive easily.
+    - Drive/partition utilities with windows support (NTFS)
+    - Preloaded installers (Nianite or individual)
+      - Probably best if there is a separate NTFS partition for any OS booted from the USB to access these and ISOs.
 - [x] Electron config
   - [ ] Top row hotkeys are not working (F1-F8 multi-media keys). Probably also related to Neutron USB soundcard volume controls not working. [Potential fix](https://github.com/NixOS/nixpkgs/issues/24297#issuecomment-538698801). [See pw-volume](https://github.com/smasher164/pw-volume)
-- [x] Neutron config
+- [x] Neutron config (all good until device arives to test)
+- [x] Hydrogen config
   - [x] [Nvidia GPU](https://nixos.wiki/wiki/Nvidia)
   - [x] [Cuda](https://nixos.wiki/wiki/CUDA) (I think I got it but gotta check)
   - [x] Monitors
@@ -37,7 +44,7 @@
 - [x] oh-my-posh
 - [x] ffmpeg
 - [x] 3d modeling / printing
-- [x] My own handbrake
+- [x] My own handbrake (transcoder.sh)
 - [x] Neovim
 - [x] Discord
 - [x] [Steam](https://nixos.wiki/wiki/Steam)
@@ -45,3 +52,7 @@
   - [x] NVM/Node
   - [x] Python
   - [x] Go
+- [ ] Custom programs
+  - [ ] Move `./rebuild.sh` to a proper nix bash script
+  - [ ] Make `transcoder.sh` a proper bash script
+  - [ ] Make dev-env

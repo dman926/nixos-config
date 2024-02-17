@@ -32,5 +32,5 @@ in
 
   home.file = oh-my-posh-themes;
 
-  programs.bash.initExtra = oh-my-posh-entrypoint;
+  programs.bash.bashrcExtra = oh-my-posh-entrypoint;
 }

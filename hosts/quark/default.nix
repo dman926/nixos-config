@@ -1,5 +1,5 @@
 { ... }:
-# Desktop | Nvidia GTX 1080
+# Live USB
 {
   imports = [
     ./configuration.nix

@@ -1,24 +1,21 @@
 { inputs, ... }:
 
 {
+  install-level = "minimal";
+
   imports =
     [
-      # inputs.nixos-hardware.nixosModules.framework-16
-      # ./hardware-configuration.nix
+      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
       ../default
-      ../../users/dj
 
-      ../../modules/nixos/secrets
-      ../../modules/nixos/core
+      ../../modules/nixos/core/i18n.nix
+      ../../modules/nixos/core/networking.nix
       ../../modules/nixos/greeter
-      ../../modules/nixos/keys
-      ../../modules/nixos/openvpn
       ../../modules/nixos/sound
-      ../../modules/nixos/steam
     ];
 
-  networking.hostName = "neutron";
+  networking.hostName = "quark";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
