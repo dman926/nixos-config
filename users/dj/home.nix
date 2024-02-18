@@ -14,6 +14,7 @@ in
     ];
 
   config = lib.mkMerge [
+    # Full Install
     (lib.mkIf full-install {
       home.packages = with pkgs; [
         yubikey-personalization
@@ -23,6 +24,7 @@ in
         blender
         cura
         openscad
+        freecad
 
         # Programming
         # These really should be in a shell.nix,
@@ -104,6 +106,7 @@ in
       };
     })
 
+    # Base
     {
       programs.home-manager.enable = true;
 

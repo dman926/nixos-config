@@ -1,4 +1,4 @@
-# Transcoder program
+# Media Processor
 
 This will eventually evolve into my [media processor](https://github.com/dman926/media-processor).
 

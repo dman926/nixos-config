@@ -22,7 +22,6 @@
   };
 
   # Lock screen on hardware key removal
-  # TODO: enable when done messing with keys
   # services.udev.extraRules = ''
   #   ACTION=="remove",\
   #     ENV{ID_BUS}=="usb",\

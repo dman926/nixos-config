@@ -1,22 +1,33 @@
 #!/usr/bin/env bash
 
-# shebang should be handled with pkgs.writeShellScriptBin
+help() {
+  ZERO="$0"
+  if [[ "${ZERO::1}" == "/"  ]]; then
+    ZERO=$(basename $ZERO)
+  fi
+  cat <<EOF
+Rename a set of files 
 
-function print_usage {
-  echo "Usage: $0 [OPTIONS] <file_prefix> <folder_name>"
-  echo "Options:"
-  echo "  --dry-run       Print out the new filenames, but don't actually rename the files"
+Usage: $ZERO [OPTIONS] <base prefix> <directory path>
+
+Options:
+  -d, --dry-run   Execute non-destructively
+  -y, --yes       Assume yes to operations
+  -f, --fill      Set the increment suffix fill length (default: 2)
+  -h, --help      Display this help message
+
+Example:
+  Rename files in the current directory
+  $ $ZERO -d "S01E" .
+
+EOF
 }
 
-function print_rename_info {
-  printf '%-*s    %s\n' "$max_filename_length" "$1" "$2"
-}
-
-function rename_file {
+rename_file() {
   old_name="$1"
   new_name="$2"
 
-  print_rename_info "$old_name" "$new_name"
+  printf '%-*s    %s\n' "$max_filename_length" "$old_name" "$new_name"
   if [ "$dry_run" = false ]; then
     mv "$old_name" "$new_name"
   fi
@@ -31,7 +42,7 @@ while [[ "$#" -gt 0 ]]; do
   case $1 in
   --dry-run) dry_run=true ;;
   -h | --help)
-    print_usage
+    help
     exit 0
     ;;
   *)
@@ -41,7 +52,7 @@ while [[ "$#" -gt 0 ]]; do
       folder_name=$1
     else
       echo "Invalid argument: $1"
-      print_usage
+      help
       exit 1
     fi
     ;;
@@ -50,7 +61,7 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 if [ -z "$file_prefix" ] || [ -z "$folder_name" ]; then
-  print_usage
+  help
   exit 1
 fi
 

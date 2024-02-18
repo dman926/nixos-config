@@ -4,6 +4,8 @@
   imports = [
     inputs.home-manager.nixosModules.default
     inputs.hyprland.nixosModules.default
+
+    ../../programs/scripts
   ];
 
   config = lib.mkMerge [

@@ -1,6 +1,50 @@
 #!/usr/bin/env bash
 
-# shebang should be handled with pkgs.writeShellScriptBin
+help() {
+  ZERO="$0"
+  if [[ "${ZERO::1}" == "/"  ]]; then
+    ZERO=$(basename $ZERO)
+  fi
+  cat <<EOF
+Transcode a set of files using ffmpeg
+
+Usage: $ZERO file-path [...]
+
+Options:
+  -h, --help      Display this help message
+
+Transcode settings:
+  Video
+    Black-bar crop detection
+    H265 HEVC using NVENC
+  Audio:
+    English and Japanese audio
+    Each track transcodes to three tracks
+      Passthrough, AC3 5.1, and AAC stereo
+  Subtitles:
+    English, Japanese, and Unknown subtitles
+
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  key="$1"
+
+  case $key in
+    -h|--help)
+      help
+      exit 0
+      ;;
+    *)
+      ;;
+  esac
+
+  shift
+done
+
+# Actual transcoding
+
+WORK_DIR="."
 
 for file in "$@"; do
   if [ ! -f "$file" ]; then
@@ -136,8 +180,8 @@ for file in "$@"; do
     -map 0:v $filter-c:v hevc_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 30 -b:v 0 -profile:v main \
     ${audioTracks[@]} \
     ${subtitleTracks[@]} \
-    "processing/${filename}.mkv" </dev/null &&
-    mv "processing/${filename}.mkv" "processed/${filename}.mkv"
+    "$WORKDIR/processing/${filename}.mkv" </dev/null &&
+    mv "$WORKDIR/processing/${filename}.mkv" "${WORKDIR}processed/${filename}.mkv"
 
   echo "Processed $filename"
 done

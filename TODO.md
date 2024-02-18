@@ -53,6 +53,6 @@
   - [x] Python
   - [x] Go
 - [ ] Custom programs
-  - [ ] Move `./rebuild.sh` to a proper nix bash script
-  - [ ] Make `transcoder.sh` a proper bash script
+  - [x] Move `./rebuild.sh` to a proper nix bash script
+  - [x] Make `transcoder.sh` a proper bash script
   - [ ] Make dev-env
