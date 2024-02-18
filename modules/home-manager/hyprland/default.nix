@@ -1,4 +1,4 @@
-{ pkgs, inputs, hostName, ... }:
+{ inputs, pkgs, lib, hostName, use-nvidia, ... }:
 let
   batteryNotify = pkgs.pkgs.writeShellScriptBin "battery-notify" ''
     while true; do
@@ -26,31 +26,26 @@ let
     '';
   monitorMap = {
     electron = "eDP-1,preferred,auto,1.33";
-    neutron = [
+    neutron = "eDP-1,preferred,auto,1.33";
+    hydrogen = [
       "DP-3,highres,0x0,1"
       "HDMI-A-1,highres,-2560x0,1"
     ];
     default = ",preferred,auto,auto";
   };
-  useNvidia = {
-    electron = false;
-    neutron = true;
-    default = false;
-  };
-  baseEnv = [
-    "QT_QPA_PLATFORMTHEME,qt5ct"
-  ];
-  env =
-    if useNvidia.${hostName} then [
-      "XCURSOR_SIZE,24"
+  env = lib.mkMerge [
+    (lib.mkIf use-nvidia [
       "LIBVA_DRIVERNAME,nvidia"
       "XDG_SESSION_TYPE,wayland"
       "GDM_BACKEND,nvidia-drm"
       "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       "WLR_NO_HARDWARE_CURSORS,1"
-    ] ++ baseEnv else [
+    ])
+    [
       "XCURSOR_SIZE,24"
-    ] ++ baseEnv;
+      "QT_QPA_PLATFORMTHEME,qt5ct"
+    ]
+  ];
 in
 {
   wayland.windowManager.hyprland = {
@@ -143,7 +138,10 @@ in
 
       exec-once = ''${startupScript}/bin/start'';
 
-      monitor = monitorMap.${hostName};
+      monitor =
+        if builtins.hasAttr hostName monitorMap
+        then monitorMap."${hostName}"
+        else monitorMap.default;
 
       inherit env;
 

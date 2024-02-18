@@ -90,7 +90,8 @@
           inherit inputs;
           inherit full-install;
           # Machine identification for fine-tuning
-          hostName = "${config.networking.hostName}";
+          hostName = config.networking.hostName;
+          use-nvidia = config.hardware.nvidia.modesetting.enable;
         };
         useGlobalPkgs = true;
         useUserPackages = true;
