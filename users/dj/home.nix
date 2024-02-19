@@ -116,6 +116,8 @@ in
       home.packages = with pkgs; [
         networkmanagerapplet
         xdg-utils
+        xdg-desktop-portal
+        xdg-desktop-portal-gtk
         pinentry-rofi
         btop
         nvitop
@@ -165,7 +167,15 @@ in
 
       xdg = {
         enable = true;
-        # mimeApps.defaultApplications = { };
+        portal = {
+          enable = true;
+          config.common.default = "*";
+          extraPortals = [
+            inputs.hyprland.packages."${pkgs.system}".xdg-desktop-portal-hyprland
+            pkgs.xdg-desktop-portal-gtk
+          ];
+          xdgOpenUsePortal = true;
+        };
       };
 
       programs.bash.enable = true;

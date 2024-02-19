@@ -16,6 +16,10 @@ let
       hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
     in
     pkgs.pkgs.writeShellScriptBin "start" ''
+      # Fix portal issues
+      systemctl --user import-environment PATH && \
+      systemctl --user restart xdg-desktop-portal.service &
+
       ${pkgs.waybar}/bin/waybar &
       ${pkgs.swww}/bin/swww init &
       ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
@@ -233,7 +237,7 @@ in
 
       windowrulev2 = [
         "nomaximizerequest, class:.*" # You'll probably like this.
-        "float, class: (xdg-desktop-portal-gtk) title: ^(Open Folder)$"
+        "float, class: (xdg-desktop-portal-gtk)"
         "float, class: (thunar) title: ^(File Operation Progress)$"
         "float, class: (thunar) title: ^(Confirm to replace files)$"
         "float, class: (org.qbittorrent.qBittorrent), title: ^(?!qBittorrent).*$"

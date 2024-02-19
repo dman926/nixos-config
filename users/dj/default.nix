@@ -27,9 +27,7 @@
 
     {
       environment.systemPackages = with pkgs; [
-        xdg-utils
-        xdg-desktop-portal
-        xdg-desktop-portal-gtk
+        libsecret
         gnome.gnome-keyring
 
         # use eww when it gets more complex, waybar works for now
@@ -98,23 +96,6 @@
         useGlobalPkgs = true;
         useUserPackages = true;
         users."dj" = import ./home.nix;
-      };
-
-      xdg = {
-        mime = {
-          addedAssociations = {
-            "x-scheme-handler/vscode" = [ "code-url-handler.desktop" ];
-          };
-          defaultApplications = {
-            "x-scheme-handler/vscode" = [ "code-url-handler.desktop" ];
-          };
-        };
-        portal = {
-          enable = true;
-          extraPortals = with pkgs; [
-            xdg-desktop-portal-gtk
-          ];
-        };
       };
 
       programs.hyprland = {

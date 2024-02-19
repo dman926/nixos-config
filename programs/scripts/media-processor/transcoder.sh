@@ -45,6 +45,10 @@ done
 
 WORK_DIR="."
 
+# Ensure the working directories exist
+mkdir -p $WORK_DIR/processing
+mkdir -p $WORK_DIR/processed
+
 for file in "$@"; do
   if [ ! -f "$file" ]; then
     echo "Does not exist. Skipping: $file"
