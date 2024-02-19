@@ -7,7 +7,7 @@ pkgs.stdenv.mkDerivation rec {
   inherit name;
   inherit version;
   src = ./.;
-  buildInputs = with pkgs; [ bash ffmpeg ];
+  buildInputs = with pkgs; [ bash ffmpeg-full ];
   nativeBuildInputs = with pkgs; [ makeWrapper ];
   phases = [ "installPhase" "fixupPhase" ];
   installPhase = ''
@@ -24,7 +24,7 @@ pkgs.stdenv.mkDerivation rec {
     fi
 
     wrapProgram $out/bin/transcoder \
-        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.ffmpeg ]}
+        --prefix PATH ${pkgs.lib.makeBinPath [ pkgs.ffmpeg-full ]}
   '';
 }
 

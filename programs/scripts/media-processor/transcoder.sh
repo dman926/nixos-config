@@ -27,6 +27,8 @@ Transcode settings:
 EOF
 }
 
+FILES=()
+
 while [[ $# -gt 0 ]]; do
   key="$1"
 
@@ -35,7 +37,9 @@ while [[ $# -gt 0 ]]; do
     help
     exit 0
     ;;
-  *) ;;
+  *)
+    FILES+=("$key")
+    ;;
   esac
 
   shift
@@ -49,7 +53,7 @@ WORK_DIR="."
 mkdir -p $WORK_DIR/processing
 mkdir -p $WORK_DIR/processed
 
-for file in "$@"; do
+for file in "${FILES[@]}"; do
   if [ ! -f "$file" ]; then
     echo "Does not exist. Skipping: $file"
     continue
@@ -183,8 +187,8 @@ for file in "$@"; do
     -map 0:v $filter-c:v hevc_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 30 -b:v 0 -profile:v main \
     ${audioTracks[@]} \
     ${subtitleTracks[@]} \
-    "$WORKDIR/processing/${filename}.mkv" </dev/null &&
-    mv "$WORKDIR/processing/${filename}.mkv" "${WORKDIR}processed/${filename}.mkv"
+    "$WORK_DIR/processing/${filename}.mkv" </dev/null &&
+    mv "$WORK_DIR/processing/${filename}.mkv" "$WORK_DIR/processed/${filename}.mkv"
 
   echo "Processed $filename"
 done
