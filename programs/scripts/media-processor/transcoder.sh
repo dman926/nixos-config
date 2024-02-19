@@ -53,6 +53,15 @@ WORK_DIR="."
 mkdir -p $WORK_DIR/processing
 mkdir -p $WORK_DIR/processed
 
+cleanup_temp_file() {
+  temp_filepath="$WORK_DIR/processing/$WORKING_FILE"
+  if [ -f "$temp_filepath" ]; then
+    rm -f "$temp_filepath"
+  fi
+}
+
+trap cleanup_temp_file SIGINT SIGTERM
+
 for file in "${FILES[@]}"; do
   if [ ! -f "$file" ]; then
     echo "Does not exist. Skipping: $file"
@@ -181,13 +190,15 @@ for file in "${FILES[@]}"; do
     }'))
 
   # Process
+  WORKING_FILE="$filename"
   ffmpeg -y -v error -stats \
     -hwaccel cuda \
     -i "$file" \
     -map 0:v $filter-c:v hevc_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 30 -b:v 0 -profile:v main \
     ${audioTracks[@]} \
     ${subtitleTracks[@]} \
-    "$WORK_DIR/processing/${filename}.mkv" </dev/null &&
+    "$WORK_DIR/processing/${filename}.mkv" </dev/null && \
+    unset $WORKING_FILE && \
     mv "$WORK_DIR/processing/${filename}.mkv" "$WORK_DIR/processed/${filename}.mkv"
 
   echo "Processed $filename"
