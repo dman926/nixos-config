@@ -2,7 +2,7 @@
 
 help() {
   ZERO="$0"
-  if [[ "${ZERO::1}" == "/"  ]]; then
+  if [[ "${ZERO::1}" == "/" ]]; then
     ZERO=$(basename $ZERO)
   fi
   cat <<EOF

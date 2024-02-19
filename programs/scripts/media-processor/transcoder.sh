@@ -2,7 +2,7 @@
 
 help() {
   ZERO="$0"
-  if [[ "${ZERO::1}" == "/"  ]]; then
+  if [[ "${ZERO::1}" == "/" ]]; then
     ZERO=$(basename $ZERO)
   fi
   cat <<EOF
@@ -31,12 +31,11 @@ while [[ $# -gt 0 ]]; do
   key="$1"
 
   case $key in
-    -h|--help)
-      help
-      exit 0
-      ;;
-    *)
-      ;;
+  -h | --help)
+    help
+    exit 0
+    ;;
+  *) ;;
   esac
 
   shift
