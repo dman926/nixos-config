@@ -17,4 +17,29 @@
       })
       { inherit config lib pkgs; })
   ];
+
+  # Override VSCode desktop entry to include `--password-store="gnome"`
+  # Fixes issues with keyring not working
+  xdg.desktopEntries.code = {
+    name = "Visual Studio Code";
+    exec = ''code --password-store="gnome" %F'';
+
+    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    comment = "Code Editing. Redefined.";
+    genericName = "Text Editor";
+    icon = "vscode";
+    mimeType = [ "text/plain" "inode/directory" ];
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "Code";
+      Keywords = "vscode";
+    };
+    actions = {
+      new-empty-window = {
+        name = "New Empty Window";
+        exec = ''code --password-store="gnome" --new-window %F'';
+        icon = "vscode";
+      };
+    };
+  };
 }
