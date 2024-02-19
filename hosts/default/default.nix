@@ -50,11 +50,19 @@
     ];
 
     services.dbus.enable = true;
+    services.gnome.gnome-keyring.enable = true;
     services.gvfs = {
       enable = true;
       package = lib.mkForce pkgs.gvfs;
     };
     services.tumbler.enable = true;
-    services.gnome.gnome-keyring.enable = true;
+    
+    # Printing
+    services.printing.enable = config.full-install;
+    services.avahi = lib.mkIf config.full-install {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
   };
 }
