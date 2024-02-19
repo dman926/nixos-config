@@ -178,6 +178,15 @@ in
             icon = "google-chrome";
             categories = [ "Network" "WebBrowser" ];
           };
+          hydroxide-share = {
+            name = "Hydroxide share";
+            genericName = "File Manager";
+            comment = "Access the Hydroxide share";
+            exec = "${pkgs.xfce.thunar}/bin/thunar smb://192.168.50.201";
+            terminal = false;
+            icon = "thunar";
+            categories = [ "System" "Core" "GTK" "FileTools" "FileManager" ];
+          };
         };
         portal = {
           enable = true;
