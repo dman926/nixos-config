@@ -167,6 +167,18 @@ in
 
       xdg = {
         enable = true;
+        desktopEntries = {
+          google-chrome-incognito = {
+            name = "Google Chrome - Incognito";
+            genericName = "Web Browser";
+            comment = "Access the Internet in Incognito";
+            exec = "${pkgs.google-chrome}/bin/google-chrome-stable --incognito %U";
+            startupNotify = true;
+            terminal = false;
+            icon = "google-chrome";
+            categories = [ "Network" "WebBrowser" ];
+          };
+        };
         portal = {
           enable = true;
           config.common.default = "*";
