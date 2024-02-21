@@ -1,8 +1,14 @@
 { pkgs, ... }:
-
+/*
+Steam
+Minecraft
+*/
 {
   environment.systemPackages = with pkgs; [
     steam-run
+
+    # Minecraft
+    prismlauncher
   ];
 
   programs.steam = {

@@ -140,8 +140,8 @@ in
         # Fix screen share
         xwaylandvideobridge
 
-        # Minecraft
-        prismlauncher
+        brightnessctl
+        playerctl
       ];
 
       home.sessionVariables = {

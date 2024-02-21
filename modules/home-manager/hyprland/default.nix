@@ -89,6 +89,16 @@ in
         "$mainMod, P, pseudo, " # dwindle
         "$mainMod, J, togglesplit," # dwindle
 
+        # Multimedia keys
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86MonBrightnessDown, exec, brightnessctl -c backlight s 5%-"
+        ", XF86MonBrightnessUp, exec, brightnessctl -c backlight s +5%"
+
         # Screenshot a window, monitor, or region
         "$mainMod, PRINT, exec, hyprshot -m window"
         "$shiftMod, PRINT, exec, hyprshot -m output"

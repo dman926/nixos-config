@@ -15,7 +15,7 @@
       ../../modules/nixos/keys
       ../../modules/nixos/openvpn
       ../../modules/nixos/sound
-      ../../modules/nixos/steam
+      ../../modules/nixos/games
     ];
 
   networking.hostName = "neutron";

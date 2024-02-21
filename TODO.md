@@ -9,7 +9,7 @@
     - Preloaded installers (Nianite or individual)
       - Probably best if there is a separate NTFS partition for any OS booted from the USB to access these and ISOs.
 - [x] Electron config
-  - [ ] Top row hotkeys are not working (F1-F8 multi-media keys). Probably also related to Neutron USB soundcard volume controls not working. [Potential fix](https://github.com/NixOS/nixpkgs/issues/24297#issuecomment-538698801). [See pw-volume](https://github.com/smasher164/pw-volume)
+  - [x] Top row hotkeys are not working (F1-F8 multi-media keys). Probably also related to Neutron USB soundcard volume controls not working. [Potential fix](https://github.com/NixOS/nixpkgs/issues/24297#issuecomment-538698801). [See pw-volume](https://github.com/smasher164/pw-volume)
 - [x] Neutron config (all good until device arives to test)
 - [x] Hydrogen config
   - [x] [Nvidia GPU](https://nixos.wiki/wiki/Nvidia)
