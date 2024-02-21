@@ -139,6 +139,9 @@ in
         hyprshot
         # Fix screen share
         xwaylandvideobridge
+
+        # Minecraft
+        prismlauncher
       ];
 
       home.sessionVariables = {

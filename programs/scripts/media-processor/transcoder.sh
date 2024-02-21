@@ -201,7 +201,7 @@ for file in "${FILES[@]}"; do
     unset $WORKING_FILE && \
     mv "$WORK_DIR/processing/${filename}.mkv" "$WORK_DIR/processed/${filename}.mkv"
 
-  echo "Processed $filename"
+  echo "Processed  $filename"
 done
 
 echo "Finished!"
