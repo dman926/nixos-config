@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, hostName, use-nvidia, ... }:
+{ osConfig, inputs, pkgs, lib, ... }:
 let
   batteryNotify = pkgs.pkgs.writeShellScriptBin "battery-notify" ''
     while true; do
@@ -42,7 +42,7 @@ let
     default = ",preferred,auto,auto";
   };
   env = lib.mkMerge [
-    (lib.mkIf use-nvidia [
+    (lib.mkIf osConfig.hardware.nvidia.modesetting.enable [
       "LIBVA_DRIVERNAME,nvidia"
       "XDG_SESSION_TYPE,wayland"
       "GDM_BACKEND,nvidia-drm"
@@ -157,8 +157,8 @@ in
       exec-once = ''${startupScript}/bin/start'';
 
       monitor =
-        if builtins.hasAttr hostName monitorMap
-        then monitorMap."${hostName}"
+        if builtins.hasAttr osConfig.networking.hostName monitorMap
+        then monitorMap."${osConfig.networking.hostName}"
         else monitorMap.default;
 
       inherit env;

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ osConfig, pkgs, lib, check ? false, ... }:
 let
   theme = "night-owl";
 
@@ -24,8 +24,10 @@ let
 
   oh-my-posh-entrypoint = ''[[ -f $HOME/.config/oh-my-posh-themes/${theme}.omp.json ]] && eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init bash --config $HOME/.config/oh-my-posh-themes/${theme}.omp.json)"
   '';
+
+  valid = !check || osConfig.install-level == "full";
 in
-{
+lib.mkIf valid {
   home.packages = with pkgs; [
     oh-my-posh
   ];
