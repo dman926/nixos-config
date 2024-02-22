@@ -20,6 +20,10 @@ let
       systemctl --user import-environment PATH && \
       systemctl --user restart xdg-desktop-portal.service &
 
+      # Polkit and Keychain
+      ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &
+      ${pkgs.kwallet-pam}/libexec/pam_kwallet_init &
+
       ${pkgs.waybar}/bin/waybar &
       ${pkgs.swww}/bin/swww init &
       ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &

@@ -15,7 +15,7 @@ pkgs.stdenv.mkDerivation rec {
     chmod +x $out/bin/${name}
   '';
   fixupPhase = ''
-    if [[ "${config-home}" != "" ]]; then
+    if [ -n "${config-home}" ]; then
       substituteInPlace $out/bin/${name} \
         --replace "# config-home PLACEHOLDER" 'cd ${config-home}'
     fi

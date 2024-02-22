@@ -21,7 +21,7 @@ in
     };
   };
 
-  security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.greetd.enableKwallet = true;
 
   systemd.services.greetd.serviceConfig = {
     Type = "idle";

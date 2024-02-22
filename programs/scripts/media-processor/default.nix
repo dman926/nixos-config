@@ -18,7 +18,7 @@ pkgs.stdenv.mkDerivation rec {
       chmod +x $out/bin/$script
     done
 
-    if [[ "${work-dir}" != "" ]]; then
+    if [ -n "${work-dir}" ]; then
       substituteInPlace $out/bin/transcoder \
         --replace 'WORK_DIR="."' 'WORK_DIR="${work-dir}"'
     fi

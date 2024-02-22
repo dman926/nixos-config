@@ -30,6 +30,7 @@ EOF
 OPT="switch"
 HN=$(hostname)
 UPGRADE=""
+upgradeText=""
 VERBOSE=""
 
 while [[ $# -gt 0 ]]; do
@@ -46,6 +47,7 @@ while [[ $# -gt 0 ]]; do
     ;;
   -u | --upgrade)
     UPGRADE="--upgrade-all"
+    upgradeText="Upgrading and "
     ;;
   -v | --verbose)
     VERBOSE="--show-trace"
@@ -74,10 +76,10 @@ if ! [ -f "./flake.nix" ]; then
 fi
 
 if [[ "$HN" == "quark" ]]; then
-  echo "Building ISO"
+  echo "${upgradeText}Building ISO"
   nix build .#nixosConfigurations.$HN.config.system.build.isoImage $VERBOSE
 else
-  echo "Building System"
+  echo "${upgradeText}Building System"
   sudo nixos-rebuild $OPT $UPGRADE --flake .#$HN $VERBOSE
 fi
 

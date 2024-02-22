@@ -1,7 +1,7 @@
 { pkgs, ... }:
 /*
-Steam
-Minecraft
+  Steam
+  Minecraft
 */
 {
   environment.systemPackages = with pkgs; [

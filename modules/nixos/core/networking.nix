@@ -1,8 +1,10 @@
 { config, lib, ... }:
-
+let
+  full-install = config.install-level == "full";
+in
 {
   config = lib.mkMerge [
-    (lib.mkIf config.full-install {
+    (lib.mkIf full-install {
       networking = {
         networkmanager.enable = true;
       };
