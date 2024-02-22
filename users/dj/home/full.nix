@@ -81,7 +81,7 @@ in
 
       programs.vscode.userSettings = {
         "workbench.startupEditor" = "none";
-        "editor.fontFamily" = "'Hasklug Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
+        "editor.fontFamily" = "'Hasklug Nerd Font', 'Hasklug Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace";
         "editor.fontLigatures" = true;
         "editor.tabSize" = 2;
         "cmake.showOptionsMovedNotification" = false;
