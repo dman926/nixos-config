@@ -1,10 +1,14 @@
-{ osConfig, pkgs, lib, ... }:
+args@{ osConfig, pkgs, lib, ... }:
 let
   full-install = osConfig.install-level == "full";
 in
 {
   imports =
-    [
+    let
+      # Check is used for imported modules to understand to check the install level
+      add_check = f: (import f (args // { check = true; }));
+    in
+    map add_check [
       ../../../modules/home-manager/oh-my-posh
       ../../../modules/home-manager/vscode-fix
     ];
