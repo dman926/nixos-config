@@ -252,6 +252,7 @@ in
       windowrulev2 = [
         "nomaximizerequest, class:.*" # You'll probably like this.
         "float, class: (xdg-desktop-portal-gtk)"
+        "float, class: (org.kde.polkit-kde-authentication-agent-1)"
         "float, class: (thunar) title: ^(File Operation Progress)$"
         "float, class: (thunar) title: ^(Confirm to replace files)$"
         "float, class: (org.qbittorrent.qBittorrent), title: ^(?!qBittorrent).*$"
