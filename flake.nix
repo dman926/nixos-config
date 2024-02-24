@@ -6,6 +6,8 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    nix-colors.url = "github:Misterio77/nix-colors";
+
     sops-nix.url = "github:Mic92/sops-nix";
 
     home-manager = {

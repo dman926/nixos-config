@@ -7,9 +7,13 @@ in
   imports =
     [
       inputs.hyprland.homeManagerModules.default
+      inputs.nix-colors.homeManagerModules.default
       ../../../modules/home-manager/hyprland
+      ../../../modules/home-manager/mako
       ../../../modules/home-manager/waybar
     ];
+
+  colorScheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 
   programs.home-manager.enable = true;
 
@@ -26,6 +30,7 @@ in
     nvitop
     stress
     neofetch
+    bc
 
     phinger-cursors
 

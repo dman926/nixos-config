@@ -24,6 +24,15 @@ in
     ./window-rules.nix
   ];
 
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -35,8 +44,6 @@ in
 
     settings = {
       inherit env;
-
-      # misc.force_default_wallpaper = 0; # Turn off default anime
 
       input = {
         kb_layout = "us";
@@ -79,6 +86,8 @@ in
       "device:epic-mouse-v1" = {
         sensitivity = -0.5;
       };
+
+      misc.force_default_wallpaper = 0; # Turn off default anime wallpaper
     };
   };
 }

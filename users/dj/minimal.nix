@@ -7,10 +7,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # use eww when it gets more complex, waybar works for now
-    # eww
-    mako
-    libnotify # Dependency of mako
     swww
     kitty # TODO: find a better terminal if any
     rofi-wayland
