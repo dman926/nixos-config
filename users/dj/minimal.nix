@@ -10,7 +10,7 @@
     swww
     kitty # TODO: find a better terminal if any
     rofi-wayland
-    # Wayland deps
+    
     libsForQt5.polkit-kde-agent
     libsForQt5.kwallet
     libsForQt5.kwallet-pam
@@ -25,14 +25,6 @@
   ];
 
   environment.sessionVariables = {
-    # Wayland/Hyprland vars
-    XDG_SESSION_TYPE = "wayland";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    QT_QPA_PLATFORM = "wayland";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
     GTK_USE_PORTAL = "1";
     NIXOS_XDG_OPEN_USE_PORTAL = "1";
     NIXOS_OZONE_WL = "1";

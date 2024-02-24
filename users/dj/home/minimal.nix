@@ -10,6 +10,7 @@ in
       inputs.nix-colors.homeManagerModules.default
       ../../../modules/home-manager/hyprland
       ../../../modules/home-manager/mako
+      ../../../modules/home-manager/theming
       ../../../modules/home-manager/waybar
     ];
 
@@ -22,9 +23,6 @@ in
 
   home.packages = with pkgs; [
     networkmanagerapplet
-    xdg-utils
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
     pinentry-rofi
     btop
     nvitop
@@ -32,11 +30,16 @@ in
     neofetch
     bc
 
+    gparted
+    partition-manager
+
     phinger-cursors
 
     google-chrome
     geeqie
     mpv
+    
+    # Hyprland stuff
     hyprpicker
     # Clipboard
     cliphist
@@ -47,9 +50,12 @@ in
     hyprshot
     # Fix screen share
     xwaylandvideobridge
-
+    # General
     brightnessctl
     playerctl
+    xdg-utils
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk
   ];
 
   home.sessionVariables = {
@@ -115,8 +121,12 @@ in
   programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhs;
-    # fix to get vscode to run on wayland
-    userSettings."window.titleBarStyle" = "custom";
+    userSettings = {
+      # fix to get vscode to run on wayland
+      "window.titleBarStyle" = "custom";
+      # Shut up update notification
+      "update.mode" = "none";
+    };
   };
 
   programs.neovim = {

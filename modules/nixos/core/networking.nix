@@ -5,12 +5,7 @@ in
 {
   config = lib.mkMerge [
     (lib.mkIf full-install {
-      networking = {
-        networkmanager.enable = true;
-      };
-
-      # Start NetworkManager on login
-      systemd.services.NetworkManager.wantedBy = [ "multi-user.target" ];
+      networking.networkmanager.enable = true;
 
       time.timeZone = "America/New_York";
     })

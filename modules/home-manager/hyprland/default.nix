@@ -3,14 +3,19 @@ let
   env = lib.mkMerge [
     (lib.mkIf osConfig.hardware.nvidia.modesetting.enable [
       "LIBVA_DRIVERNAME,nvidia"
-      "XDG_SESSION_TYPE,wayland"
       "GDM_BACKEND,nvidia-drm"
       "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       "WLR_NO_HARDWARE_CURSORS,1"
     ])
     [
       "XCURSOR_SIZE,24"
+      "XDG_SESSION_TYPE,wayland"
+      "XDG_CURRENT_DESKTOP,Hyprland"
+      "XDG_SESSION_DESKTOP,Hyprland"
+      "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+      "QT_QPA_PLATFORM,wayland"
       "QT_QPA_PLATFORMTHEME,qt5ct"
+      "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
     ]
   ];
 in
@@ -24,6 +29,7 @@ in
     ./window-rules.nix
   ];
 
+  # Tell other applications to use dark mode
   dconf = {
     enable = true;
     settings = {
@@ -35,12 +41,6 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-
-    # Enable session
-    systemd = {
-      enable = true;
-      variables = [ "-all" ];
-    };
 
     settings = {
       inherit env;

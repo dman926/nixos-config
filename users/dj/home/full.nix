@@ -25,6 +25,8 @@ in
         openscad
         freecad
 
+        libreoffice
+
         # Programming
         # These really should be in a shell.nix,
         # but I don't like the idea making a bunch of them    
