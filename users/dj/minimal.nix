@@ -9,12 +9,10 @@
   environment.systemPackages = with pkgs; [
     swww
     kitty # TODO: find a better terminal if any
-    rofi-wayland
-    
-    libsForQt5.polkit-kde-agent
-    libsForQt5.kwallet
-    libsForQt5.kwallet-pam
-    libsForQt5.kwalletmanager
+
+    libsecret
+    polkit_gnome
+    gnome.seahorse
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct
 

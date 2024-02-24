@@ -22,6 +22,7 @@ in
   home.homeDirectory = "/home/dj";
 
   home.packages = with pkgs; [
+    rofi-wayland
     networkmanagerapplet
     pinentry-rofi
     btop
@@ -38,7 +39,7 @@ in
     google-chrome
     geeqie
     mpv
-    
+
     # Hyprland stuff
     hyprpicker
     # Clipboard

@@ -28,22 +28,26 @@
     enable = true;
     adminIdentities = [ "unix-group:wheel" ];
   };
-  services.dbus.enable = true;
-  services.gvfs = {
-    enable = true;
-    package = lib.mkForce pkgs.gvfs;
-  };
-  services.tumbler.enable = true;
-
-  # Printing
-  services.printing.enable = config.install-level == "full";
-  services.avahi =
-    let
-      full-install = config.install-level == "full";
-    in
-    lib.mkIf full-install {
+  
+  services = {
+    dbus.enable = true;
+    gnome.gnome-keyring.enable = true;
+    gvfs = {
       enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
+      package = lib.mkForce pkgs.gvfs;
     };
+    tumbler.enable = true;
+
+    # Printing
+    printing.enable = config.install-level == "full";
+    avahi =
+      let
+        full-install = config.install-level == "full";
+      in
+      lib.mkIf full-install {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
+      };
+  };
 }

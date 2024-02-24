@@ -42,6 +42,11 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
 
+    systemd = {
+      enable = true;
+      variables = [ "-all" ];
+    };
+
     settings = {
       inherit env;
 
