@@ -2,7 +2,7 @@
 
 ## Customization
 
-- [ ] [Bluetooth](https://nixos.wiki/wiki/Bluetooth) and [Pipewire integration](https://nixos.wiki/wiki/PipeWire#Bluetooth_Configuration) (Shouldn't need to mess with Pipewire)
+- [x] [Bluetooth](https://nixos.wiki/wiki/Bluetooth) and [Pipewire integration](https://nixos.wiki/wiki/PipeWire#Bluetooth_Configuration) (Shouldn't need to mess with Pipewire)
 - [ ] [CAVA](https://github.com/karlstav/cava) with [waybar module](https://github.com/Alexays/Waybar/wiki/Module:-Cava)
 - [ ] Look into [gamemode](https://github.com/Alexays/Waybar/wiki/Module:-Gamemode)
 - [ ] Waybar VPN status / mako notifications
