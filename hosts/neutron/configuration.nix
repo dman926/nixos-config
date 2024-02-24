@@ -11,6 +11,7 @@
 
       ../../modules/nixos/secrets
       ../../modules/nixos/core
+      ../../modules/nixos/bluetooth
       ../../modules/nixos/greeter
       ../../modules/nixos/keys
       ../../modules/nixos/openvpn

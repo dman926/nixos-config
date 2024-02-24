@@ -11,6 +11,7 @@
 
       ../../modules/nixos/core/i18n.nix
       ../../modules/nixos/core/networking.nix
+      ../../modules/nixos/bluetooth
       ../../modules/nixos/greeter
       ../../modules/nixos/sound
     ];

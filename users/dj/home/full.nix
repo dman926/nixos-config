@@ -65,7 +65,7 @@ in
         };
         extraConfig = {
           push = {
-            autoSetupRemove = true;
+            autoSetupRemote = true;
           };
           pull = {
             rebase = true;

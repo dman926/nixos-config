@@ -21,7 +21,7 @@ let
       hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
     in
     pkgs.writeShellScriptBin "hypr-start" ''
-      # Fix portal issues
+      # Fix portal
       systemctl --user import-environment PATH && \
       systemctl --user restart xdg-desktop-portal.service &
 
@@ -29,13 +29,17 @@ let
       ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &
       ${pkgs.kwallet-pam}/libexec/pam_kwallet_init &
 
+      # UI
       ${pkgs.waybar}/bin/waybar &
       ${pkgs.swww}/bin/swww init &
       ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
+      ${pkgs.blueman}/bin/blueman-applet &
+
+      # Util
       ${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store &
       ${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store &
+      ${hyprland}/bin/hyprctl setcursor phinger-cursors 1 &      
       ${batteryNotify}/bin/battery-notify &
-      ${hyprland}/bin/hyprctl setcursor phinger-cursors 1 &
     '';
 in
 {
