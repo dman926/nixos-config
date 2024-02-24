@@ -12,6 +12,8 @@ let
     #   fi
     # done
 
+    # export DBUS_SESSION_BUS_ADDRESS="''${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/''${UID}/bus}"
+
     # ${pkgs.coreutils-full}/bin/sleep 3
 
     # Kill traffic outside VPN
@@ -33,6 +35,8 @@ let
   '';
 
   downScript = pkgs.writeShellScript "openvpn-pia-down" ''
+    # export DBUS_SESSION_BUS_ADDRESS="''${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/''${UID}/bus}"
+
     # ${pkgs.coreutils-full}/bin/sleep 3
     
     # Restore iptables
@@ -61,11 +65,7 @@ let
         # Actual service config
         value = {
           description = "Private Internet Access - ${fixup name}";
-          before = [ "openvpn-pia.service" ];
-          environment = {
-            DISPLAY = ":0";
-            WAYLAND_DISPLAY = "wayland-0";
-          };
+          # before = [ "openvpn-pia.service" ];
           serviceConfig = {
             ExecStart = ''${pkgs.openvpn}/bin/openvpn --script-security 2 --config ${resources}/${name} --auth-user-pass /run/secrets/pia/auth-user-pass --up "${upScript}" --down "${downScript}" --block-ipv6'';
             # TODO: killswitch monitor
