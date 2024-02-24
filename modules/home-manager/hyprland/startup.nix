@@ -2,12 +2,16 @@
 let
   batteryNotify = pkgs.writeShellScriptBin "battery-notify" ''
     while true; do
-      bat_lvl=$(cat /sys/class/power_supply/BAT1/capacity)
-      if [ "$bat_lvl" -le 15 ]; then
-        notify-send --urgency=CRITICAL "Battery Low" "Level: ''${bat_lvl}%"
-        sleep 360 # 6 minutes between critical alerts
+      if [ -f /sys/class/power_supply/BAT1/capacity ]; then
+        bat_lvl=$(cat /sys/class/power_supply/BAT1/capacity)
+        if [ "$bat_lvl" -le 15 ]; then
+          notify-send --urgency=CRITICAL "Battery Low" "Level: ''${bat_lvl}%"
+          sleep 360 # 6 minutes between critical alerts
+        else
+          sleep 120 # 2 minutes between standard checks
+        fi
       else
-        sleep 120 # 2 minutes between standard checks
+        sleep 360 # 6 minutes between checking for a battery
       fi
     done
   '';
@@ -16,7 +20,7 @@ let
     let
       hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
     in
-    pkgs.writeShellScriptBin "start" ''
+    pkgs.writeShellScriptBin "hypr-start" ''
       # Fix portal issues
       systemctl --user import-environment PATH && \
       systemctl --user restart xdg-desktop-portal.service &
@@ -35,5 +39,5 @@ let
     '';
 in
 {
-  wayland.windowManager.hyprland.settings.exec-once = ''${startupScript}/bin/start'';
+  wayland.windowManager.hyprland.settings.exec-once = ''${startupScript}/bin/hypr-start'';
 }
