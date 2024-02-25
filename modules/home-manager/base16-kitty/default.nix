@@ -11,5 +11,6 @@
     `null` produces no Base16 theming.'';
     example = ''"standard"'';
     type = with types; nullOr (uniq (enum [ "standard" "256" ]));
+    default = null;
   };
 }
