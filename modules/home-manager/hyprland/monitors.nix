@@ -1,8 +1,8 @@
 { osConfig, ... }:
 let
   monitorMap = {
-    electron = "eDP-1,preferred,auto,1.33";
-    neutron = "eDP-1,preferred,auto,1.33";
+    electron = "eDP-1,preferred,auto,1.175";
+    neutron = "eDP-1,preferred,auto,1.175";
     hydrogen = [
       "DP-3,highres,0x0,1"
       "HDMI-A-1,highres,-2560x0,1"

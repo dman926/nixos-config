@@ -39,6 +39,7 @@
 
   fonts = {
     enableDefaultPackages = true;
+    fontDir.enable = true;
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Hasklig" ]; })
       font-awesome
@@ -48,6 +49,9 @@
       defaultFonts.monospace = with pkgs; [
         "Hasklig Mono"
       ];
+      antialias = true;
+      hinting.enable = true;
+      hinting.autohint = true;
     };
   };
 
