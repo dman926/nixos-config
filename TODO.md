@@ -12,7 +12,7 @@
   - [x] Mako integration
   - [ ] Waybar integration
   - [ ] Oh-my-posh integration (custom theme)
-  - [ ] Terminal integration
+  - [x] Terminal integration
 
 ## Programs
 
@@ -27,7 +27,7 @@
 - [x] 3d modeling / printing
 - [x] My own handbrake (transcoder.sh)
 - [x] Neovim
-- [x] Discord
+- [x] Discord/Vesktop
 - [x] [Steam](https://nixos.wiki/wiki/Steam)
 - [x] Programming
   - [x] NVM/Node

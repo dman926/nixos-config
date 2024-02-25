@@ -19,9 +19,7 @@ in
       qbittorrent
       ffmpeg-full
 
-      discord
-      # Discord screensharing with audio in Wayland
-      vesktop
+      vesktop # Discord fork
     ];
   };
 }
