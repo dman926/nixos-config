@@ -8,6 +8,7 @@ in
     [
       inputs.hyprland.homeManagerModules.default
       inputs.nix-colors.homeManagerModules.default
+      ../../../modules/home-manager/base16-kitty
       ../../../modules/home-manager/hyprland
       ../../../modules/home-manager/mako
       ../../../modules/home-manager/theming
@@ -118,6 +119,18 @@ in
   };
 
   programs.bash.enable = true;
+
+  programs.kitty = {
+    enable = true;
+    base16-theme = "standard";
+  };
+
+  # TODO: get and style tmux
+  # programs.tmux = {
+  #   enable = true;
+  #   clock24 = true;
+  #   mouse = true;
+  # };
 
   programs.vscode = {
     enable = true;

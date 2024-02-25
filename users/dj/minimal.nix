@@ -8,7 +8,6 @@
 
   environment.systemPackages = with pkgs; [
     swww
-    kitty # TODO: find a better terminal if any
 
     libsecret
     polkit_gnome
