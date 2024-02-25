@@ -7,12 +7,13 @@
 - [ ] Look into [gamemode](https://github.com/Alexays/Waybar/wiki/Module:-Gamemode)
 - [ ] Waybar VPN status / mako notifications
 - [ ] Theming unification
+  - [x] GTK/QT Breeze dark
   - [x] nix-colors
-  - [x] Hyprland integration
-  - [x] Mako integration
-  - [ ] Waybar integration
-  - [ ] Oh-my-posh integration (custom theme)
-  - [x] Terminal integration
+    - [x] Hyprland integration
+    - [x] Mako integration
+    - [ ] Waybar integration
+    - [ ] Oh-my-posh integration (custom theme)
+    - [x] Terminal integration
 
 ## Programs
 
@@ -39,7 +40,6 @@
   - [ ] Make dev-env
 - [ ] Warp terminal
 - [ ] [Thermaltake RGB Software](https://github.com/chestm007/linux_thermaltake_riing) if it even works
-
 
 ## Config
 
