@@ -128,22 +128,11 @@ in
     base16-theme = "standard";
   };
 
-  # TODO: get and style tmux
-  # programs.tmux = {
-  #   enable = true;
-  #   clock24 = true;
-  #   mouse = true;
-  # };
-
-  programs.vscode = {
+  programs.tmux = {
     enable = true;
-    package = pkgs.vscode.fhs;
-    userSettings = {
-      # fix to get vscode to run on wayland
-      "window.titleBarStyle" = "custom";
-      # Shut up update notification
-      "update.mode" = "none";
-    };
+    clock24 = true;
+    mouse = true;
+    extraConfig = '''';
   };
 
   programs.neovim = {

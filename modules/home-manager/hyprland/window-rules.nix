@@ -9,7 +9,7 @@
   ] ++ [
     # Tile rules
     "tile, class: (Thunar) title: ^(File Manager Preferences)$"
-    
+
     # Float rules
 
     "float, class: (xdg-desktop-portal-gtk)"

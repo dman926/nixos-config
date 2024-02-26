@@ -37,6 +37,8 @@ in
         };
         "githubPullRequests.createOnPublishBranch" = "never";
         "githubPullRequests.pullBranch" = "never";
+        "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "rnix-lsp";
         "nxConsole.showNodeVersionOnStartup" = false;
         "sql-formatter.uppercase" = true;
       } // (

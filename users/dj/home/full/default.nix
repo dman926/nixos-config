@@ -18,6 +18,8 @@ in
   config = lib.mkIf full-install
     {
       home.packages = with pkgs; [
+        rnix-lsp
+
         yubikey-personalization
         sops
 
@@ -80,6 +82,17 @@ in
           init = {
             defaultBranch = "main";
           };
+        };
+      };
+
+      programs.vscode = {
+        enable = true;
+        package = pkgs.vscode.fhs;
+        userSettings = {
+          # fix to get vscode to run on wayland
+          "window.titleBarStyle" = "custom";
+          # Shut up update notification
+          "update.mode" = "none";
         };
       };
     };
