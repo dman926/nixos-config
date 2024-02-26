@@ -63,6 +63,8 @@
     users."dj" = import ./home;
   };
 
+  programs.gnupg.agent.pinentryFlavor = "gnome3";
+
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
