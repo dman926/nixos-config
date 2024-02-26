@@ -46,7 +46,6 @@ in
     hyprpicker
     phinger-cursors
     rofi-wayland
-    pinentry-rofi
     # Clipboard
     cliphist
     wl-clipboard

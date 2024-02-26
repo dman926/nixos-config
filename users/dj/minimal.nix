@@ -40,14 +40,17 @@
     enableDefaultPackages = true;
     fontDir.enable = true;
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Hasklig" ]; })
+      (nerdfonts.override { fonts = [ "Hasklig" "Meslo" "Hack" ]; })
       font-awesome
     ];
     fontconfig = {
       enable = true;
-      defaultFonts.monospace = with pkgs; [
-        "Hasklig Mono"
-      ];
+      defaultFonts = {
+        emoji = [ "Noto Color Emoji" ];
+        monospace = [ "Hack Nerd Font Mono" "DejaVu Sans Mono" ];
+        sansSerif = [ "DejaVu Sans" ];
+        serif = [ "DejaVu Serif" ];
+      };
       antialias = true;
       hinting.enable = true;
       hinting.autohint = true;
