@@ -23,26 +23,30 @@ in
   home.homeDirectory = "/home/dj";
 
   home.packages = with pkgs; [
-    rofi-wayland
-    networkmanagerapplet
-    pinentry-rofi
-    btop
-    nvitop
+    # CLI
+    bc
     stress
     neofetch
-    bc
+    zip
+    
+    # TUI
+    btop
+    nvitop
 
-    gparted
-    partition-manager
-
-    phinger-cursors
-
+    # GUI
     google-chrome
     geeqie
     mpv
+    networkmanagerapplet
+    # Neither of these are working
+    gparted # Doesn't start. Complains there is no DISPLAY when there is
+    partition-manager # Starts, but doesn't ask for perms to check disks, so it just hangs at the start
 
     # Hyprland stuff
     hyprpicker
+    phinger-cursors
+    rofi-wayland
+    pinentry-rofi
     # Clipboard
     cliphist
     wl-clipboard
