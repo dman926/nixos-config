@@ -100,7 +100,7 @@ fi
 
 if [[ "$HN" == "quark" ]]; then
   base_string="Building ISO"
-  if [ -n $DRY ]; then
+  if [ -n "$DRY" ]; then
     echo "${base_string} (DRY RUN)"
   else
     echo "${base_string}"
@@ -108,7 +108,7 @@ if [[ "$HN" == "quark" ]]; then
   nix build .#nixosConfigurations.$HN.config.system.build.isoImage $DRY $VERBOSE
 else
   base_string="${upgradeText}Building System"
-  if [ -n $DRY ]; then
+  if [ -n "$DRY" ]; then
     echo "${base_string} (DRY RUN)"
   else
     echo "${base_string} with \"$OPT\""
