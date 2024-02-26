@@ -69,6 +69,7 @@
     portalPackage = inputs.hyprland.packages."${pkgs.system}".xdg-desktop-portal-hyprland;
   };
 
+  programs.xfconf.enable = true; # Save XFCE settings
   programs.thunar = {
     enable = true;
     plugins = with pkgs.xfce; [
