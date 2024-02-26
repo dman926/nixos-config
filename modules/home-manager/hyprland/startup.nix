@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ osConfig, pkgs, inputs, ... }:
 let
   # TODO:
   # Hook into /sys/class/power_supply/BAT1/status to get "Discharging"/"Charing" status to dismiss old battery alert.
@@ -23,6 +23,7 @@ let
   startupScript =
     let
       hyprland = inputs.hyprland.packages."${pkgs.system}".hyprland;
+      blueman = if osConfig.services.blueman.enable then "${pkgs.blueman}/bin/blueman-applet &" else "";
     in
     pkgs.writeShellScriptBin "hypr-start" ''
       # Fix portal
@@ -36,7 +37,7 @@ let
       ${pkgs.waybar}/bin/waybar &
       ${pkgs.swww}/bin/swww init &
       ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
-      ${pkgs.blueman}/bin/blueman-applet &
+      ${blueman}
 
       # Util
       ${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store &
