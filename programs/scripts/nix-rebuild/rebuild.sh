@@ -14,6 +14,7 @@ Options:
   -hn, --hostname HN  Set the hostname to rebuild (default: current hostname [ $(hostname) ]))
 
   -u, --upgrade       Upgrade when running nixos-rebuild. Ignored for ISO hosts.
+  -d, --dry           Execute non-destructively, effectively an alias for "-o dry-activate" on a non-ISO host.
   -v, --verbose       Verbose output (--show-trace)
   -h, --help          Display this help message
 
@@ -28,8 +29,10 @@ EOF
 }
 
 OPT="switch"
+OPT_SET=0
 HN=$(hostname)
 UPGRADE=""
+DRY=""
 upgradeText=""
 VERBOSE=""
 
@@ -38,8 +41,20 @@ while [[ $# -gt 0 ]]; do
 
   case $key in
   -o | --opt)
-    OPT="$2"
-    shift
+    if [ $OPT_SET -eq 0 ]; then
+      if [[ "$2" =~ ^(switch|boot|test|build|dry-build|dry-activate|edit|repl|build-vm|build-vm-with-bootloader|list-generations)$ ]]; then
+        OPT="$2"
+        OPT_SET=1
+        shift
+      else
+        echo "Invalid option: \"$key $2\""
+        help
+        exit 1
+      fi
+    else
+      # We want to ensure "--dry" takes precedence
+      echo "Option already set: $OPT. Ignoring: \"$key $2\""
+    fi
     ;;
   -hn | --hostname)
     HN="$2"
@@ -48,6 +63,14 @@ while [[ $# -gt 0 ]]; do
   -u | --upgrade)
     UPGRADE="--upgrade-all"
     upgradeText="Upgrading and "
+    ;;
+  -d | --dry)
+    OPT="dry-activate"
+    DRY="--dry-run"
+    if [ $OPT_SET -ne 0 ]; then
+      echo "Warning: Option explicitly set: $OPT. Overridding with \"$key\""
+    fi
+    OPT_SET=1
     ;;
   -v | --verbose)
     VERBOSE="--show-trace"
@@ -76,10 +99,20 @@ if ! [ -f "./flake.nix" ]; then
 fi
 
 if [[ "$HN" == "quark" ]]; then
-  echo "${upgradeText}Building ISO"
-  nix build .#nixosConfigurations.$HN.config.system.build.isoImage $VERBOSE
+  base_string="Building ISO"
+  if [ -n $DRY ]; then
+    echo "${base_string} (DRY RUN)"
+  else
+    echo "${base_string}"
+  fi
+  nix build .#nixosConfigurations.$HN.config.system.build.isoImage $DRY $VERBOSE
 else
-  echo "${upgradeText}Building System"
+  base_string="${upgradeText}Building System"
+  if [ -n $DRY ]; then
+    echo "${base_string} (DRY RUN)"
+  else
+    echo "${base_string} with \"$OPT\""
+  fi
   sudo nixos-rebuild $OPT $UPGRADE --flake .#$HN $VERBOSE
 fi
 
