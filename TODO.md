@@ -76,3 +76,6 @@
       - [x] Login with TuiGreeter
   - [x] Secrets with [sops-nix](https://github.com/Mic92/sops-nix)
   - [x] Low battery notification daemon
+  - [ ] Idle lock
+  - [ ] Laptop lid-close lock
+  - [ ] Clipboard seems to be messed up a little. Issue occurring while interacting with a Ubuntu virtual machine through the web browser, so it's probably just wack there, and rightly so.
