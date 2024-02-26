@@ -8,9 +8,11 @@ in
       # Check is used for imported modules to understand to check the install level
       add_check = f: (import f (args // { check = true; }));
     in
-    map add_check [
-      ../../../modules/home-manager/oh-my-posh
-      ../../../modules/home-manager/vscode-fix
+    (map add_check [
+      ../../../../modules/home-manager/oh-my-posh
+      ../../../../modules/home-manager/vscode-fix
+    ]) ++ [
+      ./vscode-settings.nix
     ];
 
   config = lib.mkIf full-install
@@ -78,31 +80,6 @@ in
           init = {
             defaultBranch = "main";
           };
-        };
-      };
-
-      programs.vscode.userSettings = {
-        "workbench.startupEditor" = "none";
-        "editor.fontFamily" = "'Hasklug Nerd Font', 'Hasklug Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace";
-        "editor.fontLigatures" = true;
-        "editor.tabSize" = 2;
-        "cmake.showOptionsMovedNotification" = false;
-        "cmake.configureOnOpen" = true;
-        # Language defaults
-        "[typescript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[typescriptreact]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[javascript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[javascriptreact]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[markdown]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
       };
     };

@@ -28,7 +28,7 @@ in
     stress
     neofetch
     zip
-    
+
     # TUI
     btop
     nvitop

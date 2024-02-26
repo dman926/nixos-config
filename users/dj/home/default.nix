@@ -4,7 +4,7 @@
   imports =
     [
       ./minimal.nix
-      ./full.nix
+      ./full
     ];
 
   # This value determines the Home Manager release that your configuration is
