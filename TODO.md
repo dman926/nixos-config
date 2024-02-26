@@ -6,16 +6,13 @@
 - [ ] [CAVA](https://github.com/karlstav/cava) with [waybar module](https://github.com/Alexays/Waybar/wiki/Module:-Cava)
 - [ ] Look into [gamemode](https://github.com/Alexays/Waybar/wiki/Module:-Gamemode)
 - [ ] Waybar VPN status / mako notifications
-- [ ] Fonts
-  - Currently using Haslkig NF nearly everywhere
-    - Hack, MesloLG,
-  - Likely use standard font(s) by default instead
 - [ ] Theming unification
   - [x] GTK/QT Breeze dark
   - [x] nix-colors
     - [x] Hyprland integration
     - [x] Mako integration
-    - [ ] Waybar integration
+    - [x] Waybar integration
+      - [ ] Custom theme
     - [ ] Oh-my-posh integration (custom theme)
     - [x] Terminal integration
 
