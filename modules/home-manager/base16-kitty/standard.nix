@@ -1,5 +1,4 @@
 { config, lib, ... }:
-# Standard adaption mapping main items and the first 16 colors (8 normal, 8 bright).
 let
   use-standard-color = config.programs.kitty.base16-theme == "standard";
 in

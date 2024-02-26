@@ -1,10 +1,4 @@
 { config, lib, ... }:
-/*
-  Extended adaption mapping main items, the first 16 colors (8 normal, 8 bright),
-  and sets the next brightest colors to direct Base16 colors to avoid interpolation issues.
-
-  You should try using "standard" first and switch to "256" if colors look strange or very dark.
-*/
 let
   use-256-color = config.programs.kitty.base16-theme == "256";
 in
