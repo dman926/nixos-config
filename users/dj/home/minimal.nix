@@ -132,7 +132,6 @@ in
     enable = true;
     clock24 = true;
     mouse = true;
-    extraConfig = '''';
   };
 
   programs.neovim = {

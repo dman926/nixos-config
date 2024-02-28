@@ -7,6 +7,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    # still don't really get if I need to have deps since packages should handle their own things
+    # lz4 # swww dep
     swww
 
     libsecret

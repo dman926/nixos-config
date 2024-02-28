@@ -19,6 +19,9 @@ let
       fi
     done
   '';
+  swww_randomizer = pkgs.writeShellScriptBin "swww_randomiser" ''
+  
+  '';
 
   startupScript =
     let
