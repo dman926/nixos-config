@@ -71,7 +71,7 @@ in
     XDG_PICTURES_DIR = "$HOME/Pictures";
     XDG_VIDEOS_DIR = "$HOME/Videos";
     # General
-    EDITOR = "nano";
+    EDITOR = "nvim";
     GPG_TTY = "$(tty)";
     HYPRSHOT_DIR = "${config.home.sessionVariables.XDG_PICTURES_DIR}/Screenshots";
   };
