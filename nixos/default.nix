@@ -24,17 +24,17 @@
 
       ./optional/avahi.nix
       ./optional/auto-hibernate.nix
-      # ./optional/backup.nix
+      ./optional/backup.nix
       ./optional/bluetooth.nix
-      # ./optional/docker.nix
+      ./optional/docker.nix
       ./optional/ephemeral.nix
       ./optional/hardening.nix
       ./optional/fingerprint.nix
       ./optional/greetd.nix
-      # ./optional/gaming.nix
+      ./optional/gaming.nix
       ./optional/power.nix
       ./optional/virtualisation.nix
-      # ./optional/vpn.nix
+      ./optional/vpn.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 

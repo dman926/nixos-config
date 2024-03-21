@@ -7,7 +7,7 @@
   });
 
   xdg.configFile."bat/themes/catppuccin.tmTheme".onChange = "${pkgs.bat}/bin/bat cache --build";
-  programs.bat = {
+  programs.bat = { # this config option doesn't seem to exist
     enable = true;
     config = {
       theme = "catppuccin";

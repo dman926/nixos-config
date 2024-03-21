@@ -11,13 +11,13 @@
     # ./cheat-sheets.nix
     ./direnv.nix
 
-    # ./docker.nix
+    ./docker.nix
     # ./eza.nix
     ./fonts.nix
     # ./fzf.nix
     ./git.nix
     ./gpg
-    # ./kdeconnect.nix
+    ./kdeconnect.nix
     # ./modern-unix.nix
     ./photos.nix
     ./ssh.nix
@@ -42,5 +42,7 @@
     nixpkgs-fmt
 
     showmethekey
+
+    vesktop
   ];
 }
