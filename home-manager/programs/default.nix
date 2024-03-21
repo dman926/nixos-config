@@ -39,6 +39,7 @@
     yubikey-personalization
 
     nixd
+    nixpkgs-fmt
 
     showmethekey
   ];
