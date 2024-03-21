@@ -1,13 +1,31 @@
 keys:
-  - &dj 3157A0E73E7310AE7DD11A58E1A18DF6B4F919E4
-  - &host_electron age1lycmmsnl6nnu4a4wxp56s888rn7nd6rf6ftjp07gj7qkwgv6c49smzdfhc
-  - &host_neutron age157cxqlr6xa6praa0y88scsh8xul5xdsk9xguf69s2rck7ylr5quq3e8tq5
+  - &admin_dj 3157A0E73E7310AE7DD11A58E1A18DF6B4F919E4
+  - &host_electron age1g40hqk2mp53rq47ghuamt5hdtwpms0sh4avfjlvgm9efpkfejedqudnype
+  - &host_hydrogen to-get
+  - &host_neutron not-available-yet
 
 creation_rules:
-  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+  # DJ Secrets
+  - path_regex: nixos/users/dj/secrets\.(ya?ml|json|env|ini)$
     key_groups:
-      - pgp:
-          - *dj
-        age:
-          - *host_electron
-          - *host_neutron
+    - pgp:
+      - *admin_dj
+      age:
+      - *host_electron
+
+    # Top level nixos/secrets.(yaml|yml|json|env|ini)
+  - path_regex: nixos/secrets\.(ya?ml|json|env|ini)$
+    key_groups:
+      # All admins
+    - pgp:
+      - *admin_dj
+      # All hosts
+      age:
+      - *host_electron
+
+  # nixos/users/USER/secrets.(yaml|yml|json|env|ini) for each USER
+  # - path_regex: nixos/users/[^/]+/secrets\.(ya?ml|json|env|ini)$
+  #   key_groups:
+  #     # All hosts
+  #   - age:
+  #     - *host_electron

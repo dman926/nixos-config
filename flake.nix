@@ -4,11 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    comma.url = "github:nix-community/comma";
 
-    nix-colors.url = "github:Misterio77/nix-colors";
-
-    sops-nix.url = "github:Mic92/sops-nix";
+    disko.url = "github:nix-community/disko";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -22,37 +20,108 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    impermanence.url = "github:nix-community/impermanence";
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    nix-colors.url = "github:Misterio77/nix-colors";
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
+    nwg-displays.url = "github:nwg-piotr/nwg-displays";
+
+    scalpel.url = "github:polygon/scalpel";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+
     waybar.url = "github:Alexays/Waybar";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      inherit (self) outputs;
+      lib = nixpkgs.lib // home-manager.lib;
+      host-systems =
+        let
+          # List of directory names in ./hosts
+          hostnames = (builtins.attrNames (lib.attrsets.filterAttrs (name: val: val == "directory") (builtins.readDir ./hosts)));
+          make_system = hostname:
+            let
+              systemPath = ./hosts/${hostname}/system.nix;
+            in
+            if (builtins.pathExists systemPath) then {
+              name = hostname;
+              value = (import systemPath).system;
+            } else null;
+        in
+        builtins.listToAttrs (lib.lists.remove null (map make_system hostnames));
+      systems = lib.lists.unique (builtins.attrValues host-systems);
+      eachSystem = lib.genAttrs systems;
+      pkgsFor = eachSystem (system: nixpkgs.legacyPackages.${system});
 
       configs =
         let
-          # List of directory names in ./hosts
-          hostnames = (builtins.attrNames (nixpkgs.lib.attrsets.filterAttrs (name: val: val == "directory") (builtins.readDir ./hosts)));
-          make_config = (hostname: {
-            name = hostname;
-            value = nixpkgs.lib.nixosSystem {
-              inherit system;
-              specialArgs = {
-                inherit inputs;
-                inherit system;
+          args = { inherit inputs outputs; };
+          useScalpel = false;
+          make_nixos = (hostname: system:
+            let
+              base_sys = lib.nixosSystem {
+                specialArgs = args;
+                modules = [
+                  ./hosts/${hostname}/configuration.nix
+                ];
               };
-              modules = [
-                ./hosts/${hostname}
-              ];
-            };
-          });
+            in
+            # TODO: figure out derivation path for dj gitconfig set by programs.git.signing.key
+            if useScalpel then
+              (base_sys.extendModules {
+                modules = [
+                  self.nixosModules.scalpel
+                  ./scalpel/nixos.nix
+                ];
+                specialArgs = { prev = base_sys; };
+              })
+            else base_sys);
+          make_home_manager = (hostname: system:
+            let
+              base_home = lib.homeManagerConfiguration {
+                extraSpecialArgs = args;
+                pkgs = pkgsFor.${system};
+                modules = [ ./hosts/${hostname}/home.nix ];
+              };
+            in
+            lib.attrsets.nameValuePair ("dj@${hostname}") (if useScalpel then
+              (base_home.extendModules {
+                modules = [
+                  self.nixosModules.scalpel
+                  ./scalpel/hm.nix
+                ];
+                specialArgs = { prev = base_home; };
+              })
+            else base_home));
         in
-        builtins.listToAttrs (map make_config hostnames);
+        {
+          nixosConfigurations = (builtins.mapAttrs make_nixos host-systems);
+          # TODO: Duplicate each entry for each user (user@system)
+          homeConfigurations = (lib.attrsets.mapAttrs' make_home_manager host-systems);
+        };
     in
-    {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+    with configs; {
+      inherit lib;
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
+      overlays = import ./overlays { inherit inputs outputs; };
+      packages = eachSystem (system: let pkgs = pkgsFor.${system}; in import ./pkgs { inherit pkgs; });
+      devShells = eachSystem (system: let pkgs = pkgsFor.${system}; in import ./shell.nix { inherit pkgs inputs; });
 
-      nixosConfigurations = configs;
+      inherit nixosConfigurations;
+      inherit homeConfigurations;
+
+      formatter = eachSystem (system: pkgsFor.${system}.nixpkgs-fmt);
     };
 }

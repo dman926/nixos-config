@@ -1,5 +1,29 @@
 # TODO
 
+Current state:
+- Borrowing https://github.com/hmajid2301/dotfiles to get to a stable base. Running into session (major), X11 (major), and Nvidia (minor) issues
+- Resources:
+  - Nix dev workflow
+    1. https://haseebmajid.dev/posts/2023-07-20-nixos-as-part-of-your-development-workflow/
+    2. https://haseebmajid.dev/posts/2023-10-24-part-2-how-to-setup-nixos-as-part-of-your-development-workflow/
+    3. https://haseebmajid.dev/posts/2023-11-15-part-3-hyprland-as-part-of-your-development-workflow/
+    4. https://haseebmajid.dev/posts/2024-01-05-part-4-wezterm-terminal-as-part-of-your-development-workflow/
+  - https://haseebmajid.dev/posts/2023-09-12-how-i-configure-nixos-as-part-of-my-development-workflow/
+  - https://haseebmajid.dev/posts/2023-10-08-how-to-create-systemd-services-in-nix-home-manager/
+  - https://haseebmajid.dev/posts/2023-10-26-how-to-setup-a-go-development-shell-with-nix-flakes/
+  - https://haseebmajid.dev/posts/2023-11-10-how-to-set-network-manager-priority-to-use-wired-connection-over-wifi/
+  - https://haseebmajid.dev/posts/2023-11-18-how-i-setup-my-raspberry-pi-cluster-with-nixos/
+  - https://haseebmajid.dev/posts/2024-02-04-how-to-create-a-custom-nixos-iso/
+
+- I guess it's basically good to move through to get it all correct and buildable to see what the scalpel modify location arg is
+- Scalpel config for git signing key (home-manager/programs/git.nix) and potentially SSH key (home-manager/programs/gpg/default.nix)
+- A bunch of TODOs for color styling
+- shells
+
+- More desktops
+  - [ ] Gnome
+  - [ ] Plasma
+
 ## Customization
 
 - [x] [Bluetooth](https://nixos.wiki/wiki/Bluetooth) and [Pipewire integration](https://nixos.wiki/wiki/PipeWire#Bluetooth_Configuration) (Shouldn't need to mess with Pipewire)
@@ -12,7 +36,7 @@
     - [x] Hyprland integration
     - [x] Mako integration
     - [x] Waybar integration
-      - [ ] Custom theme
+      - [x] Custom theme (Basically done but I can't color to save my life)
     - [ ] Oh-my-posh integration (custom theme)
     - [x] Terminal integration
 
@@ -39,7 +63,7 @@
   - [x] Move `./rebuild.sh` to a proper nix bash script
   - [x] Make `transcoder.sh` a proper bash script
   - [ ] Make dev-env
-- [ ] Warp terminal
+- [ ] Warp terminal (PR is merged. Waiting to be available in unstable)
 - [ ] [Thermaltake RGB Software](https://github.com/chestm007/linux_thermaltake_riing) if it even works
 
 ## Config
