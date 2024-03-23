@@ -22,7 +22,7 @@ in
       };
     };
 
-    environment.persistence = mkIf config.modules.persistence.enable {
+    environment.persistence = {
       "/persist/system".directories = [
         "/var/lib/containers"
       ];

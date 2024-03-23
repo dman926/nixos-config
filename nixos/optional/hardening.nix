@@ -4,10 +4,10 @@
 , ...
 }:
 with lib; let
-  cfg = config.modules.nixos.extraSecurity;
+  cfg = config.modules.nixos.hardening;
 in
 {
-  options.modules.nixos.extraSecurity = {
+  options.modules.nixos.hardening = {
     enable = mkEnableOption "hardened nixos";
   };
 

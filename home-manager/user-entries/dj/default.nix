@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./default.nix
+    ../default.nix
   ];
 
   config = with lib; {
@@ -24,6 +24,12 @@
 
       shells = {
         bash.enable = mkDefault true;
+        prompts = {
+          oh-my-posh = {
+            enable = mkDefault true;
+            theme = mkDefault "night-owl";
+          };
+        };
       };
 
       wms = {
@@ -43,7 +49,13 @@
         browser = mkDefault "chromium";
         editor = mkDefault "nano";
       };
+      programmingLangs = [
+        "nodejs"
+        "go"
+      ];
     };
+
+    sops.defaultSopsFile = ../../users/dj/secrets.yaml;
 
     home.username = "dj";
   };

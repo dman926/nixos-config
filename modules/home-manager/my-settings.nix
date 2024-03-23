@@ -29,12 +29,7 @@ in
       };
     };
 
-    impermanenceEnabled = mkOption {
-      type = types.bool;
-      description = "Whether to enable impermanence to delete home directory on reboot";
-      default = false;
-    };
-
+    # TODO: Integrate wallpaper
     wallpaper = mkOption {
       type = types.str;
       default = "";
@@ -64,5 +59,17 @@ in
         Name of the host
       '';
     };
+
+    programmingLangs = mkOption
+      {
+        type = with types; listOf (enum [
+          "nodejs"
+          "go"
+        ]);
+        default = [ ];
+        description = ''
+          List of programming languages to install
+        '';
+      };
   };
 }

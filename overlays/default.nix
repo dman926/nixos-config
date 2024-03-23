@@ -12,5 +12,14 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
+
+    # Temp fix for fprintd failing meson checks
+    # https://github.com/NixOS/nixpkgs/issues/298150#issuecomment-2015815945
+    fprintd = prev.fprintd.overrideAttrs (_: {
+      mesonCheckFlags = [
+        "--no-suite"
+        "fprintd:TestPamFprintd"
+      ];
+    });
   };
 }

@@ -23,7 +23,6 @@ in
     };
 
     hardware.steam-hardware.enable = true;
-    services.ratbagd.enable = true;
 
     programs = {
       gamemode.enable = true;

@@ -16,17 +16,18 @@
   networking.hostName = "electron";
 
   modules.nixos = {
+    auto-hibernate.enable = true;
     # avahi.enable = true;
-    # auto-hibernate.enable = false;
     # backup.enable = true;
     bluetooth.enable = true;
-    # docker.enable = true;
+    docker.enable = true;
     fingerprint.enable = true;
     # gaming.enable = true;
     login.enable = true;
-    # extraSecurity.enable = true;
+    hardening.enable = true;
     power.enable = true;
     virtualisation.enable = true;
+    # TODO: Move to home manager
     # vpn.enable = true;
   };
 
@@ -34,23 +35,17 @@
     nix-rebuild
   ];
 
-  # swapDevices = [{ device = "/dev/disk/by-partlabel/disk-main-swap"; }];
   boot = {
     blacklistedKernelModules = [ "hid-sensor-hub" ];
     supportedFilesystems = lib.mkForce [ "btrfs" ];
     kernelPackages = pkgs.linuxPackages_latest;
     loader = {
-      # efi = {
-      #   canTouchEfiVariables = true;
-      #   efiSysMountPoint = "/boot/efi";
-      # };
       grub = {
         enable = true;
         efiSupport = true;
         efiInstallAsRemovable = true;
       };
     };
-    # resumeDevice = "/dev/disk/by-label/nixos";
   };
 
   boot.plymouth = {
@@ -58,7 +53,6 @@
     themePackages = [ (pkgs.catppuccin-plymouth.override { variant = "mocha"; }) ];
     theme = "catppuccin-mocha";
   };
-  # boot.initrd.systemd.enable = true;
 
   system.stateVersion = "23.11";
 }

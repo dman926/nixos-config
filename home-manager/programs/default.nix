@@ -20,6 +20,7 @@
     ./kdeconnect.nix
     # ./modern-unix.nix
     ./photos.nix
+    ./programming-langs
     ./ssh.nix
   ];
 
@@ -32,7 +33,7 @@
 
     (lib.hiPrio parallel)
     moreutils
-    nvtop-amd
+    nvtopPackages.full
     htop
     unzip
     gnupg
@@ -43,6 +44,7 @@
 
     showmethekey
 
+    cura
     vesktop
   ];
 }

@@ -2,7 +2,7 @@
 , lib
 , bash
 , pkg-config
-, config-home ? "~/Documents/code/nixos-config"
+, config-home ? "~/Documents/code/dman926/nixos-config"
 ,
 }:
 stdenv.mkDerivation rec {

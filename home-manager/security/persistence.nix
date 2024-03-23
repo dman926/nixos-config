@@ -14,7 +14,10 @@
       "Videos"
       ".gnupg"
       ".ssh"
+      
+      ".config/cura"
       ".config/sops/age"
+      
       ".local/share/keyrings"
       ".local/share/direnv"
       {

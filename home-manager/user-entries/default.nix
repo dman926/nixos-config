@@ -42,7 +42,6 @@
     colorscheme = mkDefault inputs.nix-colors.colorSchemes.tokyo-night-dark;
 
     home = {
-      username = mkDefault "dj";
       homeDirectory = mkDefault "/home/${config.home.username}";
       stateVersion = mkDefault "23.11";
     };

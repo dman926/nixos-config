@@ -22,14 +22,13 @@ with lib; let
   make_entrypoint = shell:
     let
       themePath = "$HOME/.config/oh-my-posh-themes/${cfg.theme}.omp.json";
-      make_entry = additional: ''eval "${pkgs.oh-my-posh}/bin/oh-my-posh init ${shell}'' + (mkIf (additional != null) " ${additional}") + ''"'';
+      make_entry = additional: ''eval "${pkgs.oh-my-posh}/bin/oh-my-posh init ${shell}'' + (if (additional != null) then " ${additional}" else "") + ''"'';
     in
     if (cfg.theme != null) then
-      concatStringsSep " " [
+      (concatStringsSep " " [
         "[[ -f ${themePath} ]] &&"
-        make_entry
-        "--config ${themePath})"
-      ] else make_entry null;
+        (make_entry "--config ${themePath})")
+      ]) else (make_entry null);
 in
 {
   options.modules.shells.prompts.oh-my-posh =
@@ -43,8 +42,8 @@ in
       };
 
       theme = mkOption {
-        type = with types; nullOr (listOf (enum theme_names));
-        default = "night-owl-abc";
+        type = with types; nullOr (enum theme_names);
+        default = "night-owl";
         description = "oh-my-posh theme";
       };
     };
