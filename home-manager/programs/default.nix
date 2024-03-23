@@ -16,7 +16,7 @@
     ./fonts.nix
     # ./fzf.nix
     ./git.nix
-    ./gpg
+    ./gpg.nix
     ./kdeconnect.nix
     # ./modern-unix.nix
     ./photos.nix

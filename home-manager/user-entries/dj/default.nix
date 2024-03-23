@@ -7,7 +7,7 @@
     ../default.nix
   ];
 
-  config = with lib; {
+  config = with lib; rec {
     modules = {
       browsers = {
         chromium.enable = mkDefault true;
@@ -40,6 +40,8 @@
         kitty.enable = mkDefault true;
         warp.enable = mkDefault true;
       };
+
+      sops.enable = mkDefault true;
     };
 
     my.settings = {
@@ -55,7 +57,9 @@
       ];
     };
 
-    sops.defaultSopsFile = ../../users/dj/secrets.yaml;
+    sops.secrets = {
+      "pia/auth-user-pass" = mkDefault { };
+    };
 
     home.username = "dj";
   };

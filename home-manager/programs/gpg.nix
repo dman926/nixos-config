@@ -26,19 +26,4 @@
       disable-ccid = true;
     };
   };
-
-  # systemd.user.sockets.gpg-agent = {
-  #   listenStreams = let
-  #     user = "haseeb";
-  #     socketDir =
-  #       pkgs.runCommand "gnupg-socketdir" {
-  #         nativeBuildInputs = [pkgs.python3];
-  #       } ''
-  #         python3 ${./gnupgdir.py} '/home/${user}/.local/share/gnupg' > $out
-  #       '';
-  #   in [
-  #     "" # unset
-  #     "%t/gnupg/${builtins.readFile socketDir}/S.gpg-agent"
-  #   ];
-  # };
 }

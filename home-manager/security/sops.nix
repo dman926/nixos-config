@@ -17,7 +17,7 @@ in
     enable = mkEnableOption "sops";
     sopsFile = mkOption {
       type = lib.types.path;
-      default = ../../users/${config.home.username}/secrets.yaml;
+      default = ../../nixos/users/${config.home.username}/secrets.yaml;
       description = ''
         Sops file used for all secrets.
       '';
@@ -39,8 +39,8 @@ in
       ];
 
       # Auto restart sops-nix
-      # home.activation.setupEtc = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      #   /run/current-system/sw/bin/systemctl start --user sops-nix
-      # '';
+      home.activation.setupEtc = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+        /run/current-system/sw/bin/systemctl start --user sops-nix
+      '';
     };
 }

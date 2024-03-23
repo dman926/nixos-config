@@ -34,7 +34,6 @@
       ./optional/gaming.nix
       ./optional/power.nix
       ./optional/virtualisation.nix
-      ./optional/vpn.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 

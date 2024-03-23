@@ -49,7 +49,11 @@
       host-systems =
         let
           # List of directory names in ./hosts
-          hostnames = (builtins.attrNames (lib.attrsets.filterAttrs (name: val: val == "directory") (builtins.readDir ./hosts)));
+          hostnames =
+            let
+              extractDirs = lib.attrsets.filterAttrs (name: val: val == "directory");
+            in
+            (builtins.attrNames (extractDirs (builtins.readDir ./hosts)));
           make_system = hostname:
             let
               systemPath = ./hosts/${hostname}/system.nix;
@@ -67,48 +71,41 @@
       configs =
         let
           args = { inherit inputs outputs; };
-          useScalpel = false;
           make_nixos = (hostname: system:
+            lib.nixosSystem {
+              specialArgs = args;
+              modules = [
+                ./hosts/${hostname}/configuration.nix
+              ];
+            });
+          make_home_manager = (hostname: args:
             let
-              base_sys = lib.nixosSystem {
-                specialArgs = args;
-                modules = [
-                  ./hosts/${hostname}/configuration.nix
-                ];
-              };
+              system = args.system;
+              users = args.users;
             in
-            # TODO: figure out derivation path for dj gitconfig set by programs.git.signing.key
-            if useScalpel then
-              (base_sys.extendModules {
-                modules = [
-                  self.nixosModules.scalpel
-                  ./scalpel/nixos.nix
-                ];
-                specialArgs = { prev = base_sys; };
-              })
-            else base_sys);
-          make_home_manager = (hostname: system:
-            let
-              base_home = lib.homeManagerConfiguration {
+            lib.attrsets.mapAttrs'
+              (user: file: lib.attrsets.nameValuePair "${user}@${hostname}" (lib.homeManagerConfiguration {
                 extraSpecialArgs = args;
                 pkgs = pkgsFor.${system};
-                modules = [ ./hosts/${hostname}/home.nix ];
-              };
-            in
-            lib.attrsets.nameValuePair ("dj@${hostname}") (if useScalpel then
-              (base_home.extendModules {
-                modules = [
-                  self.nixosModules.scalpel
-                  ./scalpel/hm.nix
-                ];
-                specialArgs = { prev = base_home; };
-              })
-            else base_home));
+                modules = [ ./hosts/${hostname}/home/${file} ];
+              }))
+              users);
         in
         {
           nixosConfigurations = (builtins.mapAttrs make_nixos host-systems);
-          # TODO: Duplicate each entry for each user (user@system)
-          homeConfigurations = (lib.attrsets.mapAttrs' make_home_manager host-systems);
+          # TODO: `infinite recursion encountered` error when building with home manager
+          homeConfigurations =
+            let
+              userEntries = hostname:
+                let
+                  fixup = builtins.replaceStrings [ ".nix" ] [ "" ];
+                  removeDefault = lib.attrsets.filterAttrs (name: val: name != "default.nix");
+                  allUsernames = lib.attrsets.mapAttrs' (name: val: lib.attrsets.nameValuePair (fixup name) (val)) (removeDefault (builtins.readDir ./hosts/${hostname}/home));
+                in
+                builtins.mapAttrs (name: val: if (val == "directory") then name else "${name}.nix") allUsernames;
+              mergedHomeNames = builtins.mapAttrs (name: val: { users = userEntries name; system = val; }) host-systems;
+            in
+            lib.attrsets.mergeAttrsList (lib.attrsets.mapAttrsToList make_home_manager mergedHomeNames);
         };
     in
     with configs; {

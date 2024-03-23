@@ -6,15 +6,16 @@ let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
+  imports = [
+    ./vpn.nix
+  ];
+
   home-manager.users.dj = import ../../../hosts/${config.networking.hostName}/home/dj.nix;
   sops.secrets = {
     dj-hashed-passwd = {
       sopsFile = ./secrets.yaml;
       neededForUsers = true;
     };
-    # dj-signing-key = {
-    #   sopsFile = ./secrets.yaml;
-    # };
   };
   users.users.dj = {
     isNormalUser = true;
