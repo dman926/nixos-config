@@ -10,6 +10,7 @@
   config = with lib; rec {
     modules = {
       browsers = {
+        chrome.enable = mkDefault true;
         chromium.enable = mkDefault true;
       };
 

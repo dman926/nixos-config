@@ -8,7 +8,7 @@ let
       "WLR_NO_HARDWARE_CURSORS,1"
     ])
     [
-      "GDK_SCALE,2"
+      "GDK_SCALE,1"
       "XCURSOR_SIZE,24"
       "XDG_SESSION_TYPE,wayland"
       "XDG_CURRENT_DESKTOP,Hyprland"

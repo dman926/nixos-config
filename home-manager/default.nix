@@ -15,6 +15,7 @@
       ./programs
       # ./scripts.nix
 
+      ./browsers/chrome.nix
       ./browsers/chromium.nix
       ./browsers/firefox.nix
 
