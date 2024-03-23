@@ -52,7 +52,7 @@
         browser = mkDefault "chromium";
         editor = mkDefault "nano";
       };
-      programmingLangs = [
+      programmingLangs = mkDefault [
         "nodejs"
         "go"
       ];

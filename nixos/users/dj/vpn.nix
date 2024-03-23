@@ -3,6 +3,10 @@
 }:
 
 {
+  environment.systemPackages = with pkgs; [
+    openvpn
+  ];
+
   systemd.services =
     let
       upScript = pkgs.writeShellScript "openvpn-pia-up" '''';

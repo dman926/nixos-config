@@ -8,6 +8,7 @@ in
 {
   programs.ssh = {
     enable = true;
+    addKeysToAgent = "yes";
     matchBlocks = {
       net = {
         host = builtins.concatStringsSep " " hostnames;

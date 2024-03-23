@@ -1,7 +1,13 @@
 # TODO
 
-Current state:
-- Borrowing https://github.com/hmajid2301/dotfiles to get to a stable base. Running into session (major), X11 (major), and Nvidia (minor) issues
+- Other system configs
+- Nvidia
+- qBitorrent
+- Desktop environments
+  - [ ] Gnome
+  - [ ] Plasma
+- Update GDK style / use theme
+
 - Resources:
   - Nix dev workflow
     1. https://haseebmajid.dev/posts/2023-07-20-nixos-as-part-of-your-development-workflow/
@@ -15,14 +21,7 @@ Current state:
   - https://haseebmajid.dev/posts/2023-11-18-how-i-setup-my-raspberry-pi-cluster-with-nixos/
   - https://haseebmajid.dev/posts/2024-02-04-how-to-create-a-custom-nixos-iso/
 
-- I guess it's basically good to move through to get it all correct and buildable to see what the scalpel modify location arg is
-- Scalpel config for git signing key (home-manager/programs/git.nix) and potentially SSH key (home-manager/programs/gpg/default.nix)
-- A bunch of TODOs for color styling
-- shells
-
-- More desktops
-  - [ ] Gnome
-  - [ ] Plasma
+# Old TODOs below
 
 ## Customization
 
