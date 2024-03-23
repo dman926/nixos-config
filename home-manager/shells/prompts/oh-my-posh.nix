@@ -16,18 +16,16 @@ with lib; let
     in
     lists.flatten (builtins.filter (name: !(builtins.isNull name)) base_themes);
 
-  theme_path = theme: { xdg.configFile."oh-my-posh-themes/${theme}.omp.json" .source = "${resources}/themes/${theme}.omp.json"; };
-
   # This really only supports bash right now
   make_entrypoint = shell:
     let
       themePath = "$HOME/.config/oh-my-posh-themes/${cfg.theme}.omp.json";
-      make_entry = additional: ''eval "${pkgs.oh-my-posh}/bin/oh-my-posh init ${shell}'' + (if (additional != null) then " ${additional}" else "") + ''"'';
+      make_entry = additional: ''eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init ${shell}'' + (if (additional != null) then " ${additional}" else "") + '')"'';
     in
     if (cfg.theme != null) then
       (concatStringsSep " " [
-        "[[ -f ${themePath} ]] &&"
-        (make_entry "--config ${themePath})")
+        ''[[ -f "${themePath}" ]] &&''
+        (make_entry "--config ${themePath}")
       ]) else (make_entry null);
 in
 {
@@ -48,14 +46,16 @@ in
       };
     };
 
-  config = mkIf cfg.enable
-    {
-      home.packages = with pkgs;
-        [
-          oh-my-posh
-        ];
-      programs.bash.bashrcExtra = mkIf (builtins.elem "bash" cfg.shells) (make_entrypoint "bash");
-    } // (theme_path cfg.theme);
-  #   } // (mkIf (cfg.enable && cfg.theme != null) ({
-  # } // (theme_path cfg.theme)));
+  config = mkIf cfg.enable {
+    home.packages = with pkgs;
+      [
+        oh-my-posh
+      ];
+
+    programs.bash.bashrcExtra = mkIf (builtins.elem "bash" cfg.shells) (make_entrypoint "bash");
+
+    xdg.configFile = mkIf (cfg.theme != null) {
+      "oh-my-posh-themes/${cfg.theme}.omp.json" .source = "${resources}/themes/${cfg.theme}.omp.json";
+    };
+  };
 }
