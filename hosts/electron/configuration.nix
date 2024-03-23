@@ -22,13 +22,10 @@
     bluetooth.enable = true;
     docker.enable = true;
     fingerprint.enable = true;
-    # gaming.enable = true;
     login.enable = true;
     hardening.enable = true;
     power.enable = true;
     virtualisation.enable = true;
-    # TODO: Move to home manager
-    # vpn.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

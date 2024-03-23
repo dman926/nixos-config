@@ -1,6 +1,6 @@
 keys:
   - &admin_dj 3157A0E73E7310AE7DD11A58E1A18DF6B4F919E4
-  - &user_dj age1pr8k4xpzzhdr9q6gzgq96e9ph54gcaw0nes6wwxflkmkteptlczq3lzyan
+  - &user_dj age1aqyd0a8quwk8z9xj6ytuntu8s5qsjppu70pf25te57j67mne8yxqk584pa
   - &host_electron age1g40hqk2mp53rq47ghuamt5hdtwpms0sh4avfjlvgm9efpkfejedqudnype
   - &host_hydrogen to-get
   - &host_neutron not-available-yet
@@ -30,5 +30,4 @@ creation_rules:
       - age:
           - *user_dj
           - *host_electron
-        pgp:
-          - *admin_dj
+ 

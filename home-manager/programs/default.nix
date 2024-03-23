@@ -45,6 +45,5 @@
     showmethekey
 
     cura
-    vesktop
   ];
 }
