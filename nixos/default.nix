@@ -32,6 +32,7 @@
       ./optional/fingerprint.nix
       ./optional/greetd.nix
       ./optional/gaming.nix
+      ./optional/nvidia.nix
       ./optional/power.nix
       ./optional/virtualisation.nix
     ]

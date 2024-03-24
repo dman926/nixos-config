@@ -29,6 +29,10 @@
     gaming.enable = true;
     hardening.enable = true;
     login.enable = true;
+    nvidia = {
+      enable = true;
+      enableCuda = true;
+    };
     power.enable = true;
     virtualisation.enable = true;
   };
