@@ -1,35 +1,61 @@
-{ inputs, ... }:
+{ inputs
+, pkgs
+, lib
+, ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+    (import ./disks.nix {
+      inherit lib;
+      # TODO: Check devices
+      device = "/dev/nvme0n1";
+      gameDevice = "/dev/sda";
+      hardStorageDevice = "/dev/sdb";
+    })
 
-{
-  imports =
-    [
-      ./hardware-configuration.nix
-
-      ../default
-      ../../users/dj
-
-      ../../modules/nixos/secrets
-      ../../modules/nixos/core
-      ../../modules/nixos/greeter
-      ../../modules/nixos/keys
-      ../../modules/nixos/nvidia
-      ../../modules/nixos/openvpn
-      ../../modules/nixos/sound
-      ../../modules/nixos/games
-    ];
+    ../../nixos
+    ../../nixos/users/dj
+    ../../nixos/users/tmpuser
+  ];
 
   networking.hostName = "hydrogen";
 
-  script-config.media-processor = {
-    enable = true;
-    work-dir = "/media/memebigboi/media";
+  modules.nixos = {
+    # avahi.enable = true;
+    # backup.enable = true;
+    bluetooth.enable = true;
+    docker.enable = true;
+    fingerprint.enable = true;
+    gaming.enable = true;
+    hardening.enable = true;
+    login.enable = true;
+    power.enable = true;
+    virtualisation.enable = true;
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  environment.systemPackages = with pkgs; [
+    nix-rebuild
+    media-processor
+    virt-manager
+  ];
+
+  boot = {
+    supportedFilesystems = lib.mkForce [ "btrfs" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    loader = {
+      grub = {
+        enable = true;
+        efiSupport = true;
+        efiInstallAsRemovable = true;
+      };
+    };
+  };
+
+  boot.plymouth = {
+    enable = true;
+    themePackages = [ (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "circuit" ]; }) ];
+    theme = "circuit";
+  };
+
+  system.stateVersion = "23.11";
 }
