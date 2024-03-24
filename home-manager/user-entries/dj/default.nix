@@ -1,4 +1,5 @@
-{ lib
+{ pkgs
+, lib
 , ...
 }:
 
@@ -49,7 +50,7 @@
       #wallpaper = mkDefault "~/dotfiles/home-manager/wallpapers/Kurzgesagt-Galaxy_3.png";
       default = {
         terminal = mkDefault "kitty";
-        browser = mkDefault "chromium";
+        browser = mkForce "google-chrome";
         editor = mkDefault "nano";
       };
       programmingLangs = mkDefault [
@@ -61,6 +62,8 @@
     sops.secrets = {
       "pia/auth-user-pass" = mkDefault { };
     };
+
+    home.packages = [ pkgs.android-studio ];
 
     home.username = "dj";
   };

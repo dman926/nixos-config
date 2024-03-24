@@ -15,6 +15,7 @@
       ".gnupg"
       ".ssh"
       
+      ".config/.android"
       ".config/cura"
       ".config/sops/age"
       

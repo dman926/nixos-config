@@ -6,24 +6,24 @@ in
   options.my.settings = {
     default = {
       terminal = mkOption {
-        type = types.nullOr (types.enum [ "kitty" ]);
+        type = with types; nullOr (enum [ "kitty" ]);
         description = "The default terminal to use";
         default = "kitty";
       };
 
       browser = mkOption {
-        type = types.nullOr (types.enum [ "chromium" "firefox" ]);
+        type = with types; nullOr (enum [ "chromium" "google-chrome" "firefox" ]);
         description = "The default browser to use";
         default = null;
       };
 
       editor = mkOption {
-        type = types.nullOr (types.enum [ "nano" "nvim" "code" ]);
+        type = with types; nullOr (enum [ "nano" "nvim" "code" ]);
         description = "The default editor to use";
         default = "nano";
       };
       shell = mkOption {
-        type = types.nullOr (types.enum [ "bash" ]);
+        type = with types; nullOr (enum [ "bash" ]);
         description = "The default shell to use";
         default = "bash";
       };

@@ -7,6 +7,8 @@ let
 in
 {
   imports = [
+    # This will get moved to an actual module eventually
+    ./android-studio.nix
     ./vpn.nix
   ];
 
