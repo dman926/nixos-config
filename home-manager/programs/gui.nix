@@ -30,6 +30,7 @@
     gnome-firmware
 
     gnome.nautilus
+    gnome.file-roller
     ffmpegthumbnailer # thumbnails
     gnome.nautilus-python # enable plugins
     gst_all_1.gst-libav # thumbnails
