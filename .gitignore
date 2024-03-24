@@ -1,4 +1,9 @@
 # Build results
-core.*
-logs/
 result
+
+# Logs
+logs/
+core.*
+
+# Direnv
+/.direnv

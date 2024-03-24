@@ -13,25 +13,20 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [ pkgs.comma pkgs.gum ];
-    programs.bash = {
-      enable = true;
+    programs = {
+      bash = {
+        enable = true;
 
-      bashrcExtra = concatLines [
-        "[[ -f $HOME/.profile ]] && . $HOME/.profile"
+        bashrcExtra = ''
+          [[ -f $HOME/.profile ]] && . $HOME/.profile
+        '';
 
-        # NPM modifications for global packages
-        "export PATH=$HOME/.npm-packages/bin:$PATH"
-        "export NODE_PATH=$HOME/.npm-packages/lib/node_modules"
-
-        # Go modifications for global packages
-        "export GOPATH=$HOME/.go"
-        "export GO111MODULE=auto"
-        "export PATH=$GOPATH/bin:$PATH"
-      ];
-
-      shellAliases = {
-        pnx = "pnpm exec nx";
+        shellAliases = {
+          pnx = "pnpm exec nx";
+        };
       };
+
+      direnv.enableBashIntegration = true;
     };
   };
 }
