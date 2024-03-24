@@ -1,6 +1,7 @@
 { stdenv
 , lib
 , bash
+, makeWrapper
 , ffmpeg-full
 , work-dir ? "/media/memebigboi/media"
 ,
@@ -15,10 +16,7 @@ stdenv.mkDerivation rec {
 
   src = ./.;
 
-  # TODO: Maybe not needed
-  # phases = [ "installPhase" "fixupPhase" ];
-  # or
-  # phases = [ "installPhase" ];
+  phases = [ "installPhase" "fixupPhase" ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -34,7 +32,7 @@ stdenv.mkDerivation rec {
     fi
 
     wrapProgram $out/bin/transcoder \
-        --prefix PATH ${pkgs.lib.makeBinPath [ pkgs.ffmpeg-full ]}
+        --prefix PATH ${lib.makeBinPath [ ffmpeg-full ]}
   '';
 
   meta = {

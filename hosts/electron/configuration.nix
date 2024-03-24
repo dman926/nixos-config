@@ -47,8 +47,8 @@
 
   boot.plymouth = {
     enable = true;
-    themePackages = [ (pkgs.catppuccin-plymouth.override { variant = "mocha"; }) ];
-    theme = "catppuccin-mocha";
+    themePackages = [ (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "circuit" ]; }) ];
+    theme = "circuit";
   };
 
   system.stateVersion = "23.11";
