@@ -9,8 +9,8 @@
       inherit lib;
       # TODO: Check devices
       device = "/dev/nvme0n1";
-      gameDevice = "/dev/sda";
-      hardStorageDevice = "/dev/sdb";
+      hardStorageDevice = "/dev/sda";
+      gameDevice = "/dev/sdb";
     })
 
     ../../nixos

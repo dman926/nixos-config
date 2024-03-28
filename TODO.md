@@ -1,8 +1,14 @@
 # TODO
 
-- Other system configs
-- Nvidia
-- qBitorrent
+- `lib/` folder to do all the wirings and share common utils. Abstracting. Could use Snowfall Lib, but I like the idea of using my own lib.
+- Likely move `home-manager/user-entries` out of `home-manager` to a standalone folder. Probably move `home-manager` and `nixos` to a group config folder.
+- [ ] System configs
+  - [x] electron
+  - [x] hydrogen (basically done. test with install)
+  - [ ] neutron
+  - [ ] quark
+- [x] Nvidia
+- [x] qBitorrent (need to do some theming)
 - Desktop environments
   - [ ] Gnome
   - [ ] Plasma

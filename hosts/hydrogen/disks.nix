@@ -1,6 +1,6 @@
 { device ? throw "Set this to your disk device, e.g. /dev/nvme0n1"
-, gameDevice ? null
-, hardStorageDevice ? null
+, gameDevice ? null # game0
+, hardStorageDevice ? null # memebigboi
 , lib
 , ...
 }:
@@ -30,7 +30,7 @@
               };
             };
             swap = {
-              size = "64G";
+              size = "17.2G";
               content = {
                 type = "swap";
                 resumeDevice = true;
