@@ -35,6 +35,7 @@ in
 
     # GUI
     google-chrome
+    chromium
     geeqie
     mpv
     networkmanagerapplet

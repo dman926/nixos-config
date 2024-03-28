@@ -28,6 +28,7 @@ in
         cura
         openscad
         freecad
+        rpi-imager
 
         libreoffice
 

@@ -166,12 +166,12 @@ for file in "${FILES[@]}"; do
   fi
 
   # Audio and Subtitle Tracks
-  # English and Japanese Audio
+  # English, Japanese, and Unknown Audio
   # Each track gets mapped to:
   #  1. Passthrough
   #  2. AC3 5.1
   #  3. AAC stereo
-  audioTracks=($(ffprobe -v error -select_streams a -show_entries "stream=index:stream_tags=language" -of csv=p=0 "$file" | grep -E '(eng|jpn)$' | awk '{
+  audioTracks=($(ffprobe -v error -select_streams a -show_entries "stream=index:stream_tags=language" -of csv=p=0 "$file" | grep -E '(eng|jpn|und)$' | awk '{
       split($0, a, ",") 
       track_num_0 = (FNR - 1) * 3
       track_num_1 = (FNR - 1) * 3 + 1
